@@ -1,0 +1,115 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { siteMeta } from "@/lib/content";
+import { ThemeSelector } from "@/components/ThemeSelector";
+
+const navItems = [
+  { href: "#about", label: "About" },
+  { href: "#skills", label: "Skills" },
+  { href: "#projects", label: "Projects" },
+  { href: "#ai-focus", label: "AI Focus" },
+  { href: "#resume", label: "Resume" },
+  { href: "#contact", label: "Contact" },
+] as const;
+
+export function Header() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-md">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3 sm:px-6 lg:px-8">
+        <div className="flex shrink-0 flex-col gap-0.5 leading-tight sm:flex-row sm:items-baseline sm:gap-2">
+          <Link
+            href="#top"
+            className="truncate font-semibold tracking-tight text-primary-text sm:max-w-[min(100%,18rem)]"
+            onClick={() => setOpen(false)}
+          >
+            {siteMeta.displayName}
+          </Link>
+          <a
+            href="#top"
+            data-bbb-link
+            onClick={() => setOpen(false)}
+            className="whitespace-nowrap text-[11px] font-medium underline-offset-2 hover:underline sm:text-xs"
+            title="Back to the top — maybe more later"
+          >
+            Brian being Brian
+          </a>
+        </div>
+
+        <nav aria-label="Primary" className="hidden items-center gap-6 md:flex">
+          {navItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="text-sm font-medium text-secondary-text transition-colors hover:text-primary-text"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-2 sm:gap-3">
+          <ThemeSelector />
+          <a
+            href="#resume"
+            className="hidden min-h-10 items-center rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-button-text shadow-sm transition-opacity hover:opacity-90 md:inline-flex"
+          >
+            Resume
+          </a>
+          <button
+            type="button"
+            className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-lg border border-border bg-card text-primary-text md:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+            <span aria-hidden className="text-lg leading-none">
+              {open ? "×" : "≡"}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <div
+        id="mobile-nav"
+        className={open ? "border-t border-border md:hidden" : "hidden"}
+        hidden={!open}
+      >
+        <nav
+          aria-label="Mobile primary"
+          className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3 sm:px-6"
+        >
+          {navItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="rounded-md px-2 py-3 text-base font-medium text-primary-text hover:bg-muted"
+              onClick={() => setOpen(false)}
+            >
+              {item.label}
+            </a>
+          ))}
+          <a
+            href="#top"
+            data-bbb-link
+            className="rounded-md px-2 py-3 text-base font-medium hover:bg-muted"
+            onClick={() => setOpen(false)}
+          >
+            Brian being Brian
+          </a>
+          <a
+            href="#resume"
+            className="mt-2 inline-flex min-h-10 items-center justify-center rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-button-text"
+            onClick={() => setOpen(false)}
+          >
+            Resume
+          </a>
+        </nav>
+      </div>
+    </header>
+  );
+}

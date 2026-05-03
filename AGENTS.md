@@ -13,3 +13,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 ## Test coverage
 
 - Maintain a **minimum of 80%** code coverage for project code as measured by the repo’s configured test tooling. New or changed behavior should include tests sufficient to stay at or above that threshold unless an existing carve-out applies.
+
+## Environemt Variables
+
+- Any changes made to the **.env** file must also be added to the **env.example** file with the values sanitized.
