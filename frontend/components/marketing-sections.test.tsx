@@ -9,7 +9,8 @@ import { PersonalitySection } from "@/components/PersonalitySection";
 import { ResumeDownloads } from "@/components/ResumeDownloads";
 import { Skills } from "@/components/Skills";
 import { TwinTeaser } from "@/components/TwinTeaser";
-import { aiFocus, experience, footerNote, hero, personality, resumeFiles, siteMeta, twinTeaser } from "@/lib/content";
+import { aiFocus, experience, footerNote, hero, personality, siteMeta, twinTeaser } from "@/lib/content";
+import { resumeFiles } from "@/lib/resume-files";
 import { siteLinks } from "@/lib/site-links";
 
 describe("marketing sections", () => {
