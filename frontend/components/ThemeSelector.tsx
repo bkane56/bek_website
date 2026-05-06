@@ -31,9 +31,7 @@ export function ThemeSelector() {
             >
               <span className="sr-only sm:not-sr-only">{opt.label}</span>
               <span className="sm:hidden" aria-hidden>
-                {opt.id === "brian-being-brian"
-                  ? "BBB"
-                  : opt.label.replace("Executive ", "Exec. ").replace(" Professional", "")}
+                {opt.label.replace("Executive ", "Exec. ").replace(" Professional", "")}
               </span>
             </button>
           );

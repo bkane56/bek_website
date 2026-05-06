@@ -1,8 +1,4 @@
-export type ThemeName =
-  | "executive-dark"
-  | "clean-light"
-  | "warm-human"
-  | "brian-being-brian";
+export type ThemeName = "executive-dark" | "clean-light" | "warm-human";
 
 export type ThemeTokens = {
   name: string;
@@ -68,22 +64,6 @@ export const THEME_OPTIONS: { id: ThemeName; label: string; tokens: ThemeTokens 
       buttonText: "#FFFFFF",
     },
   },
-  {
-    id: "brian-being-brian",
-    label: "Brian being Brian",
-    tokens: {
-      name: "Brian being Brian",
-      background: "#080516",
-      card: "#1c1038",
-      primaryText: "#faf5ff",
-      secondaryText: "#c4b8fc",
-      accent: "#4cfacf",
-      secondaryAccent: "#ff71c8",
-      border: "#6344b8",
-      mutedSurface: "#2d1b4e",
-      buttonText: "#160822",
-    },
-  },
 ];
 
 export const DEFAULT_THEME: ThemeName = "clean-light";
@@ -92,7 +72,6 @@ export function isThemeName(value: unknown): value is ThemeName {
   return (
     value === "executive-dark" ||
     value === "clean-light" ||
-    value === "warm-human" ||
-    value === "brian-being-brian"
+    value === "warm-human"
   );
 }

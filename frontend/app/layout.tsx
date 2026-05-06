@@ -50,7 +50,7 @@ const themeBoot = `
 (function(){
   try {
     var k=${JSON.stringify(THEME_STORAGE_KEY)};
-    var themes=["executive-dark","clean-light","warm-human","brian-being-brian"];
+    var themes=["executive-dark","clean-light","warm-human"];
     var v=localStorage.getItem(k);
     var t=themes.indexOf(v)>=0?v:${JSON.stringify(DEFAULT_THEME)};
     document.documentElement.setAttribute("data-theme",t);
