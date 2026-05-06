@@ -43,7 +43,7 @@ export const featuredProjects: ProjectCard[] = [
       "Large-scale React work with React Router, reducer-driven state, and production-oriented front-end architecture.",
     techStack: ["React", "React Router", "Reducers", "TypeScript", "Component architecture"],
     status: "live",
-    demoUrl: siteLinks.github,
+    githubUrl: siteLinks.github,
   },
   {
     title: "RAG Document Assistant",

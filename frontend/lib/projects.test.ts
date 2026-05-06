@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { statusLabel } from "@/lib/projects";
+import { featuredProjects, statusLabel } from "@/lib/projects";
+import { siteLinks } from "@/lib/site-links";
 
 describe("statusLabel", () => {
   it.each([
@@ -14,5 +15,14 @@ describe("statusLabel", () => {
   it("returns the raw value when the runtime status is unexpected", () => {
     // @ts-expect-error — guards the defensive default branch at runtime.
     expect(statusLabel("weird-status")).toBe("weird-status");
+  });
+});
+
+describe("featuredProjects data", () => {
+  it("uses githubUrl (not demoUrl) for the GitHub-backed React enterprise card", () => {
+    const reactEnterprise = featuredProjects.find((p) => p.title === "React Enterprise Application");
+    expect(reactEnterprise).toBeDefined();
+    expect(reactEnterprise!.demoUrl).toBeUndefined();
+    expect(reactEnterprise!.githubUrl).toBe(siteLinks.github);
   });
 });
