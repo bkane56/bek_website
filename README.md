@@ -38,6 +38,20 @@ The intended host is **[Vercel](https://vercel.com)** (see requirements). In pla
 
 Those steps happen in Vercel’s UI; this repo intentionally does not store personal deploy tokens here.
 
+### If you only see “recent previews” and no **Project** or **Settings → Build**
+
+That usually means a **deployment URL** exists (often from CLI, GitHub commenting, or a partial flow) **without completing “Import Git Repository → Project.”** **`Settings → Build and Deployment` only appears on an actual Project** after import.
+
+Do this:
+
+1. Open **[vercel.com/new](https://vercel.com/new)** (dashboard → **Add New…** → **Project**).
+2. **Import** this repo (`bek_website`) under your account or team (**team switcher** top-left must match GitHub repo owner if applicable).
+3. Finish the wizard: set **Root Directory** to **`frontend`** (recommended) or leave **.** with root [`vercel.json`](vercel.json); turn **OFF** overrides for Install/Build commands.
+4. Click **Deploy**. Vercel then creates a **Project** tile under **Overview → Projects**.
+5. Open that project → **Settings** (left sidebar). **Build & Deployment**, **Domains**, etc. appear there.
+
+Deployments that show only under global activity/feeds often link to failed preview builds tied to Git; they are not a substitute for a connected Project—you still need **Import Project** once so settings and Production branch are defined.
+
 ### Environment variables on Vercel
 
 Optional public links are wired through **`frontend/lib/site-links.ts`**. If you maintain different profiles or email aliases per environment:
