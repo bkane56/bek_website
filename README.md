@@ -26,12 +26,11 @@ What that means:
 The intended host is **[Vercel](https://vercel.com)** (see requirements). In plain English:
 
 1. Push this repository to GitHub (or GitLab/Bitbucket) if it is not there already.
-2. Log into Vercel and choose **Add New → Project**, import this repo, then configure the build:
-   - **Root Directory:** `frontend` (required — [`package.json`](frontend/package.json) and Next.js live there, not at the repo root).
-   - **Install Command:** `yarn install` (Vercel detects [`frontend/yarn.lock`](frontend/yarn.lock)).
-   - **Build Command:** `yarn build` (default).
-   - **Framework Preset:** Next.js (auto-detected).
-   - **If Root Directory stays at `.`:** Vercel may run **`npm install` at the repo root** (there is almost nothing to install) and **`next: command not found`** when building. Prefer setting Root Directory to **`frontend`**; this repo also includes a root [`vercel.json`](vercel.json) that runs **`yarn install` and `yarn build` inside [`frontend/`](frontend/)** as a fallback.
+2. Log into Vercel and choose **Add New → Project**, import this repo, then configure the build (these settings belong on **Settings → Build and Deployment**, and on the import wizard):
+   - **Root Directory:** set to **`frontend`** (required). Use **Edit →** next to Root Directory on import, or configure it afterward. The thin root [`package.json`](package.json) is not the app; [`frontend/package.json`](frontend/package.json), [`yarn.lock`](frontend/yarn.lock), and Next.js all live under [`frontend/`](frontend/).
+   - **Framework Preset:** **Next.js** (choose explicitly if detection is unsure).
+   - **Install Command / Build Command:** leave **automatic** unless you have overridden them before. Clearing overrides lets Vercel use [`frontend/vercel.json`](frontend/vercel.json) and the scripts in [`frontend/package.json`](frontend/package.json) (`yarn install` with frozen lockfile and `yarn build`).
+   - If Root Directory stays **`.`**, Vercel typically runs **`npm install`/`npm run build` at the repo root**, installs almost nothing useful, then **`yarn --cwd frontend build`** can fail with **`next: command not found`**. Fixing Root Directory fixes that class of failure.
 3. After the first deployment finishes, Vercel shows you a preview URL like `something.vercel.app`.
 4. In **Project → Settings → Domains**, add **`brianekane.com`** and **`www.brianekane.com`**. Vercel lists the exact DNS records (do not guess A/CNAME values—they change).
 5. In **AWS Route 53** (Hosted Zone for `brianekane.com`), create those records and remove any conflicting old `A`/`CNAME` rows. If your IAM user cannot edit Route 53, use an account with `route53:ChangeResourceRecordSets` on that zone (or change DNS at whichever registrar hosts your nameservers).
