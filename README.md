@@ -1,106 +1,177 @@
-# BrianEKane.com (this repo)
+# BrianEKane.com — Professional landing site
 
-This folder is the marketing site for **Brian E. Kane** — a Next.js homepage focused on recruiting and professional networking. Details of what the page should contain live in [`REQUIREMENTS.md`](REQUIREMENTS.md).
+Marketing and recruiting homepage for **Brian E. Kane**, implemented as a statically optimized **Next.js** application. The site is intended to be linked from **LinkedIn**, GitHub, résumés, and email signatures so visitors—recruiters, hiring managers, and fellow engineers—can quickly assess technical depth, focus areas, and how work is structured in code.
 
-## Quick start
+Product intent and detailed UX requirements live in [`REQUIREMENTS.md`](REQUIREMENTS.md). This README emphasizes **technology choices**, **architecture**, and **how to run or extend the project**.
 
-You need Node.js and [Yarn](https://yarnpkg.com/) (Classic v1 is fine) installed — matching the usual versions used with current Next.js — see [`package.json`](package.json).
+---
 
-1. Clone the repo and open this folder in a terminal.
-2. Install dependencies: `yarn --cwd frontend install` (the Next.js app and [`yarn.lock`](frontend/yarn.lock) live under [`frontend/`](frontend/)).
-3. Start the local preview: `yarn dev` (runs `yarn --cwd frontend dev`).
-4. Open `http://localhost:3000` in your browser.
+## Technology stack
 
-To check that production output works on your machine, run:
+| Layer | Choices | Notes |
+|--------|---------|--------|
+| **Framework** | [Next.js](https://nextjs.org/) **16** (App Router) | Server-first defaults; React Server Components where applicable |
+| **UI runtime** | [React](https://react.dev/) **19** | Concurrent features aligned with current Next.js |
+| **Language** | [TypeScript](https://www.typescriptlang.org/) **5** | Strict typing across app, components, and tests |
+| **Styling** | [Tailwind CSS](https://tailwindcss.com/) **4** | Utility-first layout and design tokens via CSS variables |
+| **Fonts** | `next/font/google` (Geist, Geist Mono) | Self-hosted subset loading, no layout shift from webfont swaps |
+| **Testing** | [Vitest](https://vitest.dev/) **4**, [Testing Library](https://testing-library.com/), [jsdom](https://github.com/jsdom/jsdom) | Unit/component tests with **≥90% line coverage** threshold on included paths (see `frontend/vitest.config.ts`) |
+| **Linting** | [ESLint](https://eslint.org/) **9**, `eslint-config-next` | Aligns with Next.js 16 defaults |
+| **Package manager** | [Yarn](https://yarnpkg.com/) (Classic) | Lockfile under `frontend/`; repo root delegates scripts with `yarn --cwd frontend` |
+| **Runtime** | Node.js **≥ 20.9** | Matches `engines` in `frontend/package.json` |
+| **Hosting** | [Vercel](https://vercel.com/) | Next.js preset; build/install commands configured per root vs `frontend/` (see [Deployment](#deployment) and [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)) |
 
-- `yarn build` — creates an optimized bundle (`yarn --cwd frontend build`)
-- `yarn start` — serves what `build` produced (`yarn --cwd frontend start`)
+There is **no separate backend service** in this repository: the site is a content-forward frontend with optional **public** configuration injected at build time.
 
-What that means:
+---
 
-- **Dev** reloads instantly while you edit.
-- **Build** is what hosts like Vercel run in the cloud to prove the site compiles cleanly.
+## Architecture (for reviewers)
 
-## Publishing to the web (high level)
+### System context
 
-The intended host is **[Vercel](https://vercel.com)** (see requirements). In plain English:
+How the property fits into a typical visitor journey:
 
-1. Push this repository to GitHub (or GitLab/Bitbucket) if it is not there already.
-2. Log into Vercel and choose **Add New → Project**, import this repo, then configure the build (these settings belong on **Settings → Build and Deployment**, and on the import wizard):
-   - **Root Directory:** **`frontend`** (strongly recommended). Use **Edit →** on import or **Settings → Build and Deployment**. Then Vercel sees [`frontend/yarn.lock`](frontend/yarn.lock) and uses Yarn with [`frontend/vercel.json`](frontend/vercel.json).
-   - **If Root Directory is `.`:** there is **no [`yarn.lock`](frontend/yarn.lock) at the repo root** — only under [`frontend/`](frontend/) — so Vercel tends to run **`npm install`** and **`npm run build`** from the thin root [`package.json`](package.json). That skips installing **`frontend`** dependencies before **`yarn --cwd frontend build`** runs, which usually fails with **`next: command not found`**. Root [`vercel.json`](vercel.json) **`installCommand`** / **`buildCommand`** forces **`yarn`** inside **`frontend/`** — unless Project Settings override them (next bullet).
-   - **Install Command / Build Command:** turn **Overrides** **off** unless you need a deliberate custom command. If Build stays pinned to **`npm run build`**, dashboard overrides **take precedence over** [`vercel.json`](vercel.json); disable overrides so the Yarn commands apply (repo root [`vercel.json`](vercel.json) when Root Directory is **`.`**, or [`frontend/vercel.json`](frontend/vercel.json) when it is **`frontend`**).
-   - **Framework Preset:** **Next.js**.
-3. After the first deployment finishes, Vercel shows you a preview URL like `something.vercel.app`.
-4. In **Project → Settings → Domains**, add **`brianekane.com`** and **`www.brianekane.com`**. Vercel lists the exact DNS records (do not guess A/CNAME values—they change).
-5. In **AWS Route 53** (Hosted Zone for `brianekane.com`), create those records and remove any conflicting old `A`/`CNAME` rows. If your IAM user cannot edit Route 53, use an account with `route53:ChangeResourceRecordSets` on that zone (or change DNS at whichever registrar hosts your nameservers).
-6. Wait until Vercel marks the domain **Valid** and HTTPS provisions; then open `https://brianekane.com` (or your chosen canonical host).
+```mermaid
+flowchart LR
+  subgraph sources["Discovery"]
+    LI[LinkedIn profile]
+    GH[GitHub profile]
+    CV[Résumé / email sig]
+  end
 
-Those steps happen in Vercel’s UI; this repo intentionally does not store personal deploy tokens here.
+  subgraph site["brianekane.com"]
+    EDGE[Vercel CDN / Edge]
+    APP[Next.js App Router]
+  end
 
-### If you only see “recent previews” and no **Project** or **Settings → Build**
+  subgraph external["Outbound"]
+    MAIL[mailto / contact]
+    DEMO[Project demos]
+    SOCIAL[Social / code hosts]
+  end
 
-That usually means a **deployment URL** exists (often from CLI, GitHub commenting, or a partial flow) **without completing “Import Git Repository → Project.”** **`Settings → Build and Deployment` only appears on an actual Project** after import.
+  LI --> EDGE
+  GH --> EDGE
+  CV --> EDGE
+  EDGE --> APP
+  APP --> MAIL
+  APP --> DEMO
+  APP --> SOCIAL
+```
 
-Do this:
+### Application structure
 
-1. Open **[vercel.com/new](https://vercel.com/new)** (dashboard → **Add New…** → **Project**).
-2. **Import** this repo (`bek_website`) under your account or team (**team switcher** top-left must match GitHub repo owner if applicable).
-3. Finish the wizard: set **Root Directory** to **`frontend`** (recommended) or leave **.** with root [`vercel.json`](vercel.json); turn **OFF** overrides for Install/Build commands.
-4. Click **Deploy**. Vercel then creates a **Project** tile under **Overview → Projects**.
-5. Open that project → **Settings** (left sidebar). **Build & Deployment**, **Domains**, etc. appear there.
+The homepage composes **presentational sections** driven by **typed content modules** and **environment-backed links**. That separation keeps copy and URLs editable without restructuring layout code.
 
-Deployments that show only under global activity/feeds often link to failed preview builds tied to Git; they are not a substitute for a connected Project—you still need **Import Project** once so settings and Production branch are defined.
+```mermaid
+flowchart TB
+  subgraph config["Configuration"]
+    ENV["Repo-root `.env` / `frontend/.env.local`"]
+    NEXT["`next.config.ts` — loads env, exposes `PUBLIC_*` to client"]
+  end
 
-### Environment variables on Vercel
+  subgraph domain["Domain data"]
+    CONTENT["`lib/content.ts`, `lib/projects.ts`, …"]
+    LINKS["`lib/site-links.ts`"]
+    RESUME["`lib/resume-files.ts` → `public/resume/`"]
+  end
 
-Optional public links are wired through **`frontend/lib/site-links.ts`**. Client-visible keys use the **`PUBLIC_`** prefix (not `NEXT_PUBLIC_`); **`frontend/next.config.ts`** loads the repo-root **`.env`** and forwards those variables into the browser bundle.
+  subgraph ui["Presentation"]
+    LAYOUT["`app/layout.tsx` — metadata, theme boot, shell"]
+    PAGE["`app/page.tsx` — section composition"]
+    COMP["`components/*` — Hero, About, FeaturedProjects, …"]
+  end
 
-- Add the same variables in Vercel: **Project → Settings → Environment Variables**, using names from **`.env.example`** at the repo root (or mirror them in `frontend/.env.local`, which should stay off git).
-- Re-deploy after editing variables so the hosted build picks them up.
-- For **`PUBLIC_CONTACT_EMAIL`**, store a full `mailto:` URL (for example `mailto:you@yourdomain.com`).
+  ENV --> NEXT
+  NEXT --> LINKS
+  CONTENT --> COMP
+  LINKS --> COMP
+  RESUME --> COMP
+  LAYOUT --> PAGE
+  COMP --> PAGE
+```
 
-## Updating content
+### Public environment variables
 
-- Narrative sections and headings are centralized in **`frontend/lib/content.ts`**.
-- Featured project cards live in **`frontend/lib/projects.ts`** and are intentionally easy to flip from “Coming soon” to “Live” once real URLs exist.
-- Resume download paths live in **`frontend/lib/resume-files.ts`** and correspond to **`frontend/public/resume/`**.
+Client-visible URLs and contact targets use a deliberate **`PUBLIC_*`** prefix (not `NEXT_PUBLIC_*`). [`frontend/next.config.ts`](frontend/next.config.ts) reads the **repository root** `.env` first, then `frontend/` env files, and forwards an allow-listed set into the browser bundle. Names and placeholders are documented in [`.env.example`](.env.example).
 
-### Resume files (`frontend/public/resume/`)
+### Themes and accessibility
 
-Formats expected on the homepage:
+- **Themes:** Three palettes; preference persisted in **`localStorage`** under `brianekane-theme` (see [`frontend/lib/themes.ts`](frontend/lib/themes.ts)). A small **before-interactive** script applies the saved theme to avoid flash of wrong theme.
+- **Accessibility:** Skip link to `#main-content`, semantic landmarks, and focus-visible patterns in the shell (`layout.tsx`).
 
-| File name | Purpose |
-|-----------|---------|
-| `Brian_Kane_Senior_Software_Engineer_Resume.pdf` | Primary recruiter/ATS-friendly download |
-| `Brian_Kane_Senior_Software_Engineer_Resume.docx` | Secondary editable format |
-| `Brian_Kane_Senior_Software_Engineer_Resume.txt` | Optional lightweight copy/paste |
+---
 
-**Important PDF note.** The tracked PDF started as a small placeholder PDF so downloads always resolve in development and CI. Before you share the site broadly, overwrite it by exporting PDF from Word/Pages/Google Docs from your authoritative resume source (the DOCX in `frontend/public/resume/` mirrors your `resources/` copy).
+## Repository layout
 
-Plain text (`*.txt`) is generated/consumed during local setup; regenerate from your DOCX anytime if wording changes materially.
+| Path | Role |
+|------|------|
+| [`frontend/`](frontend/) | Next.js application root (dependencies, `yarn.lock`, source) |
+| [`frontend/app/`](frontend/app/) | App Router entry: `layout.tsx`, `page.tsx`, global styles |
+| [`frontend/components/`](frontend/components/) | Section and shell UI |
+| [`frontend/lib/`](frontend/lib/) | Copy, projects, themes, résumé paths, site links |
+| [`frontend/public/`](frontend/public/) | Static assets (images, résumé downloads) |
+| [`package.json`](package.json) | Thin root scripts delegating to `frontend/` |
+| [`vercel.json`](vercel.json) | Install/build when Vercel root is **`.`** |
+| [`frontend/vercel.json`](frontend/vercel.json) | Install/build when Vercel **Root Directory** is **`frontend`** |
+| [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) | Step-by-step Vercel import, DNS, env vars, and troubleshooting |
 
-### Images
+---
 
-Add optimized photos when ready:
+## Local development
 
-| Path | Intended use |
-|------|----------------|
-| `frontend/public/images/brian-headshot.jpg` | Professional hero/about image (optional for launch) |
-| `frontend/public/images/brian-personality-hat.jpg` | Fun “bear hat” image for personality section |
+**Prerequisites:** Node.js **≥ 20.9** and **Yarn**.
 
-Until those exist, the site uses approachable text placeholders rather than breaking the build.
+```bash
+yarn --cwd frontend install
+yarn dev
+```
 
-## Theme switcher behavior
+Open `http://localhost:3000`.
 
-Visitors can pick among three palettes; the preference is persisted in **`localStorage`** keyed as `brianekane-theme` (see **`frontend/lib/themes.ts`**). Themes are purely cosmetic and should not reload the page.
+Other useful commands:
 
-## Quality checks locally
+| Command | Purpose |
+|---------|---------|
+| `yarn build` | Production build (`yarn --cwd frontend build`) |
+| `yarn start` | Serve production output locally |
+| `yarn lint` | ESLint across the frontend |
+| `yarn --cwd frontend test` | Vitest run |
+| `yarn --cwd frontend test:coverage` | Coverage report (thresholds in `vitest.config.ts`) |
 
-Run `yarn lint` before pushing if you touched TypeScript/React files. Linting catches common footguns consistent with ESLint defaults from `create-next-app`.
+---
 
-## Troubleshooting tips
+## Deployment
 
-If `yarn --cwd frontend install` fails, verify your Node and Yarn versions and delete `frontend/node_modules` plus `frontend/yarn.lock` **only after** confirming with the team—that forces a dependency re-resolve and can subtly change transitive versions.
+**Intended host:** Vercel (Next.js framework preset).
 
-If `yarn build` fails locally, paste the compiler error—it usually references the exact filename and fix.
+**Root directory:** Prefer setting Vercel **Root Directory** to **`frontend`** so `yarn.lock` is discovered naturally and [`frontend/vercel.json`](frontend/vercel.json) applies. If the project root is **`.`**, use root [`vercel.json`](vercel.json) so install/build run inside `frontend/` (otherwise a root-only `npm` flow can miss `next` on the path).
+
+**Domains:** Configure `brianekane.com` / `www` in Vercel and apply the DNS records they provide (e.g. Route 53). Do not guess A/CNAME targets—they can change.
+
+**Environment variables:** Mirror [`.env.example`](.env.example) in **Vercel → Project → Settings → Environment Variables**. Redeploy after changes. For email, use a full `mailto:` URL for `PUBLIC_CONTACT_EMAIL` when set.
+
+For the full walkthrough (root directory vs `.`, dashboard overrides, “preview without project”, DNS, and troubleshooting), see **[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)**.
+
+---
+
+## Editing content
+
+| Concern | Primary files |
+|---------|----------------|
+| Narrative / SEO meta | [`frontend/lib/content.ts`](frontend/lib/content.ts), metadata in [`frontend/app/layout.tsx`](frontend/app/layout.tsx) |
+| Featured projects | [`frontend/lib/projects.ts`](frontend/lib/projects.ts) |
+| External links | [`frontend/lib/site-links.ts`](frontend/lib/site-links.ts) + env vars |
+| Résumé downloads | [`frontend/lib/resume-files.ts`](frontend/lib/resume-files.ts), files under [`frontend/public/resume/`](frontend/public/resume/) |
+| Imagery | [`frontend/public/images/`](frontend/public/images/) |
+
+---
+
+## Engineering philosophy (what this repo demonstrates)
+
+- **Separation of concerns:** UI components vs centralized content and link configuration.
+- **Typed, testable modules:** Vitest + Testing Library on sections and critical libs; coverage gates on selected paths.
+- **Operational clarity:** Explicit Node engine, frozen lockfile-friendly Vercel commands, and documented env contract for recruiters-friendly links (LinkedIn, GitHub, demos).
+- **Performance-minded defaults:** App Router, font optimization, static-friendly homepage composition.
+
+For stakeholders who care about *what the page must communicate*, continue with [`REQUIREMENTS.md`](REQUIREMENTS.md).
