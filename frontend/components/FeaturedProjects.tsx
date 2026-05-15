@@ -1,10 +1,33 @@
 import { featuredProjects, statusLabel } from "@/lib/projects";
 
-function primaryHref(project: (typeof featuredProjects)[number]): string | undefined {
-  if (project.demoUrl) return project.demoUrl;
-  if (project.caseStudyUrl) return project.caseStudyUrl;
-  if (project.githubUrl) return project.githubUrl;
-  return undefined;
+type Project = (typeof featuredProjects)[number];
+
+type ProjectAction = { href: string; label: string; external: boolean };
+
+function projectActions(project: Project): ProjectAction[] {
+  const actions: ProjectAction[] = [];
+  if (project.demoUrl) {
+    actions.push({
+      href: project.demoUrl,
+      label: "Open demo",
+      external: project.demoUrl.startsWith("http"),
+    });
+  }
+  if (project.githubUrl) {
+    actions.push({
+      href: project.githubUrl,
+      label: "GitHub",
+      external: project.githubUrl.startsWith("http"),
+    });
+  }
+  if (project.caseStudyUrl && actions.length === 0) {
+    actions.push({
+      href: project.caseStudyUrl,
+      label: "View details",
+      external: project.caseStudyUrl.startsWith("http"),
+    });
+  }
+  return actions;
 }
 
 export function FeaturedProjects() {
@@ -18,9 +41,8 @@ export function FeaturedProjects() {
       </p>
       <div className="mt-10 grid gap-6 lg:grid-cols-2">
         {featuredProjects.map((project) => {
-          const href = primaryHref(project);
-          const isLive = project.status === "live" && href;
-          const isExternal = Boolean(href?.startsWith("http"));
+          const actions = projectActions(project);
+          const isLive = project.status === "live" && actions.length > 0;
 
           return (
             <article
@@ -46,17 +68,24 @@ export function FeaturedProjects() {
                   </span>
                 ))}
               </div>
-              <div className="mt-6">
+              <div className="mt-6 flex flex-wrap gap-3">
                 {isLive ? (
-                  <a
-                    href={href}
-                    className="inline-flex min-h-10 items-center justify-center rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-button-text hover:opacity-90"
-                    {...(isExternal
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
-                  >
-                    View details
-                  </a>
+                  actions.map((action, index) => (
+                    <a
+                      key={`${action.href}-${action.label}`}
+                      href={action.href}
+                      className={
+                        index === 0
+                          ? "inline-flex min-h-10 items-center justify-center rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-button-text hover:opacity-90"
+                          : "inline-flex min-h-10 items-center justify-center rounded-lg border border-border bg-card px-4 py-2 text-sm font-semibold text-primary-text hover:bg-muted"
+                      }
+                      {...(action.external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                    >
+                      {action.label}
+                    </a>
+                  ))
                 ) : (
                   <button
                     type="button"

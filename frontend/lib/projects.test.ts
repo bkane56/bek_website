@@ -25,4 +25,11 @@ describe("featuredProjects data", () => {
     expect(reactEnterprise!.demoUrl).toBeUndefined();
     expect(reactEnterprise!.githubUrl).toBe(siteLinks.github);
   });
+
+  it("links National Park Trip Planner to the Hugging Face demo and GitHub repo", () => {
+    const nationalPark = featuredProjects.find((p) => p.title === "National Park Trip Planner");
+    expect(nationalPark).toBeDefined();
+    expect(nationalPark!.demoUrl).toBe(siteLinks.nationalParkTripPlannerDemo);
+    expect(nationalPark!.githubUrl).toBe(siteLinks.nationalParkTripPlannerRepo);
+  });
 });

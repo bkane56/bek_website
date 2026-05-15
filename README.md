@@ -54,11 +54,11 @@ Deployments that show only under global activity/feeds often link to failed prev
 
 ### Environment variables on Vercel
 
-Optional public links are wired through **`frontend/lib/site-links.ts`**. If you maintain different profiles or email aliases per environment:
+Optional public links are wired through **`frontend/lib/site-links.ts`**. Client-visible keys use the **`PUBLIC_`** prefix (not `NEXT_PUBLIC_`); **`frontend/next.config.ts`** loads the repo-root **`.env`** and forwards those variables into the browser bundle.
 
-- Add the same variables in Vercel: **Project → Settings → Environment Variables**, using values from **`.env.example`** at the repo root or your `frontend/.env.local` file (which should stay off git).
+- Add the same variables in Vercel: **Project → Settings → Environment Variables**, using names from **`.env.example`** at the repo root (or mirror them in `frontend/.env.local`, which should stay off git).
 - Re-deploy after editing variables so the hosted build picks them up.
-- For **`NEXT_PUBLIC_CONTACT_EMAIL`**, store a full `mailto:` URL (for example `mailto:you@yourdomain.com`).
+- For **`PUBLIC_CONTACT_EMAIL`**, store a full `mailto:` URL (for example `mailto:you@yourdomain.com`).
 
 ## Updating content
 

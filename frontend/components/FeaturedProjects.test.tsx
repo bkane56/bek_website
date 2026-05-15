@@ -28,6 +28,14 @@ vi.mock("@/lib/projects", async (importOriginal) => {
       githubUrl: "https://github.com/user/repo",
     },
     {
+      title: "Demo Plus Repo",
+      description: "Both public demo and repository.",
+      techStack: [],
+      status: "live",
+      demoUrl: "https://example.com/app",
+      githubUrl: "https://github.com/user/app",
+    },
+    {
       title: "No Links Live",
       description: "Live label but awaiting wiring.",
       techStack: [],
@@ -53,7 +61,7 @@ describe("FeaturedProjects", () => {
 
     const externalArticle = screen.getByRole("heading", { name: "External Live" }).closest("article");
     expect(externalArticle).not.toBeNull();
-    const externalLink = within(externalArticle!).getByRole("link", { name: /view details/i });
+    const externalLink = within(externalArticle!).getByRole("link", { name: /open demo/i });
     expect(externalLink).toHaveAttribute("href", "https://example.com/demo");
     expect(externalLink).toHaveAttribute("target", "_blank");
     expect(externalLink).toHaveAttribute("rel", "noopener noreferrer");
@@ -64,8 +72,19 @@ describe("FeaturedProjects", () => {
     expect(relativeLink).not.toHaveAttribute("target");
 
     const githubArticle = screen.getByRole("heading", { name: "GitHub Fallback" }).closest("article")!;
-    const githubLink = within(githubArticle).getByRole("link", { name: /view details/i });
+    const githubLink = within(githubArticle).getByRole("link", { name: /^github$/i });
     expect(githubLink).toHaveAttribute("href", "https://github.com/user/repo");
+    expect(githubLink).toHaveAttribute("target", "_blank");
+
+    const dualArticle = screen.getByRole("heading", { name: "Demo Plus Repo" }).closest("article")!;
+    expect(within(dualArticle).getByRole("link", { name: /open demo/i })).toHaveAttribute(
+      "href",
+      "https://example.com/app",
+    );
+    expect(within(dualArticle).getByRole("link", { name: /^github$/i })).toHaveAttribute(
+      "href",
+      "https://github.com/user/app",
+    );
 
     const missingLinksArticle = screen.getByRole("heading", { name: "No Links Live" }).closest("article")!;
     expect(
@@ -81,7 +100,7 @@ describe("FeaturedProjects", () => {
   it("surfaces status badges for each card", () => {
     render(<FeaturedProjects />);
 
-    expect(screen.getAllByText("Live")).toHaveLength(4);
+    expect(screen.getAllByText("Live")).toHaveLength(5);
     expect(screen.getAllByText("Coming Soon")).toHaveLength(1);
   });
 });
