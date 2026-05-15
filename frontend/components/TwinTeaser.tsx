@@ -1,4 +1,5 @@
 import { twinTeaser } from "@/lib/content";
+import { twinChrome } from "@/lib/ui-copy";
 
 export function TwinTeaser() {
   return (
@@ -17,7 +18,7 @@ export function TwinTeaser() {
           {twinTeaser.ctaDisabled}
         </button>
         <p id="twin-status" className="mt-3 text-xs text-secondary-text">
-          Text chat first, then optional audio — no autoplay, ever.
+          {twinChrome.statusNote}
         </p>
       </div>
     </section>

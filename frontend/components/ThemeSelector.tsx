@@ -2,6 +2,7 @@
 
 import { THEME_OPTIONS, type ThemeName } from "@/lib/themes";
 import { useTheme } from "@/components/ThemeProvider";
+import { abbrevThemeLabelForCompactUi, ariaLabels, themeChrome } from "@/lib/ui-copy";
 
 export function ThemeSelector() {
   const { theme, setTheme } = useTheme();
@@ -10,9 +11,9 @@ export function ThemeSelector() {
     <div
       className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2"
       role="group"
-      aria-label="Color theme"
+      aria-label={ariaLabels.themeGroup}
     >
-      <span className="hidden text-sm text-secondary-text sm:inline">Theme</span>
+      <span className="hidden text-sm text-secondary-text sm:inline">{themeChrome.visibleLabel}</span>
       <div className="flex rounded-lg border border-border bg-muted p-0.5">
         {THEME_OPTIONS.map((opt) => {
           const pressed = theme === opt.id;
@@ -31,7 +32,7 @@ export function ThemeSelector() {
             >
               <span className="sr-only sm:not-sr-only">{opt.label}</span>
               <span className="sm:hidden" aria-hidden>
-                {opt.label.replace("Executive ", "Exec. ").replace(" Professional", "")}
+                {abbrevThemeLabelForCompactUi(opt.label)}
               </span>
             </button>
           );

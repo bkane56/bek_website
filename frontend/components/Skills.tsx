@@ -1,4 +1,5 @@
 import { skillsGroups } from "@/lib/content";
+import { sectionCopy } from "@/lib/ui-copy";
 
 export function Skills() {
   return (
@@ -9,11 +10,9 @@ export function Skills() {
     >
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <h2 id="skills-heading" className="text-2xl font-bold tracking-tight text-primary-text">
-          Skills
+          {sectionCopy.skills.heading}
         </h2>
-        <p className="mt-2 max-w-prose text-secondary-text">
-          Grouped by practice area — no vanity percentages, just what ships.
-        </p>
+        <p className="mt-2 max-w-prose text-secondary-text">{sectionCopy.skills.subtitle}</p>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {skillsGroups.map((group) => (
             <article

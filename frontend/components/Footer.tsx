@@ -1,14 +1,6 @@
 import { siteMeta, footerNote } from "@/lib/content";
 import { siteLinks } from "@/lib/site-links";
-
-const items = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#ai-focus", label: "AI Focus" },
-  { href: "#resume", label: "Resume" },
-  { href: "#contact", label: "Contact" },
-] as const;
+import { ariaLabels, externalLinkLabels, primaryNavItems } from "@/lib/ui-copy";
 
 export function Footer() {
   return (
@@ -19,8 +11,8 @@ export function Footer() {
             <p className="font-semibold text-primary-text">{siteMeta.displayName}</p>
             <p className="mt-1 max-w-md text-sm text-secondary-text">{siteMeta.tagline}</p>
           </div>
-          <nav aria-label="Footer" className="flex flex-wrap gap-x-4 gap-y-2">
-            {items.map((item) => (
+          <nav aria-label={ariaLabels.navFooter} className="flex flex-wrap gap-x-4 gap-y-2">
+            {primaryNavItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
@@ -35,7 +27,7 @@ export function Footer() {
               rel="noreferrer"
               target="_blank"
             >
-              LinkedIn
+              {externalLinkLabels.linkedIn}
             </a>
             <a
               href={siteLinks.github}
@@ -43,13 +35,13 @@ export function Footer() {
               rel="noreferrer"
               target="_blank"
             >
-              GitHub
+              {externalLinkLabels.github}
             </a>
             <a
               href={siteLinks.email}
               className="text-sm font-medium text-secondary-text hover:text-primary-text"
             >
-              Email
+              {externalLinkLabels.email}
             </a>
           </nav>
         </div>

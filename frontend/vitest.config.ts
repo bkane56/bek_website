@@ -20,7 +20,14 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "json-summary"],
-      include: ["components/**/*.tsx", "lib/themes.ts", "lib/projects.ts", "lib/site-links.ts", "app/page.tsx"],
+      include: [
+        "components/**/*.tsx",
+        "lib/themes.ts",
+        "lib/projects.ts",
+        "lib/site-links.ts",
+        "lib/ui-copy.ts",
+        "app/page.tsx",
+      ],
       exclude: ["**/*.test.*", "**/*.spec.*"],
       thresholds: {
         lines: 90,

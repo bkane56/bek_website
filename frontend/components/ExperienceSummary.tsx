@@ -1,4 +1,5 @@
 import { experience } from "@/lib/content";
+import { sectionCopy } from "@/lib/ui-copy";
 
 export function ExperienceSummary() {
   return (
@@ -8,7 +9,7 @@ export function ExperienceSummary() {
       className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8"
     >
       <h2 id="experience-heading" className="text-2xl font-bold tracking-tight text-primary-text">
-        Experience summary
+        {sectionCopy.experience.heading}
       </h2>
       <p className="mt-6 font-mono text-sm text-secondary-text sm:text-base">
         {experience.progression}

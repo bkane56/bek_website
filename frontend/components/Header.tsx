@@ -4,15 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { siteMeta } from "@/lib/content";
 import { ThemeSelector } from "@/components/ThemeSelector";
-
-const navItems = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#ai-focus", label: "AI Focus" },
-  { href: "#resume", label: "Resume" },
-  { href: "#contact", label: "Contact" },
-] as const;
+import { ariaLabels, headerChrome, primaryNavItems } from "@/lib/ui-copy";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -30,8 +22,8 @@ export function Header() {
           </Link>
         </div>
 
-        <nav aria-label="Primary" className="hidden items-center gap-6 md:flex">
-          {navItems.map((item) => (
+        <nav aria-label={ariaLabels.navPrimary} className="hidden items-center gap-6 md:flex">
+          {primaryNavItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
@@ -48,7 +40,7 @@ export function Header() {
             href="#resume"
             className="hidden min-h-10 items-center rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-button-text shadow-sm transition-opacity hover:opacity-90 md:inline-flex"
           >
-            Resume
+            {headerChrome.resumeButton}
           </a>
           <button
             type="button"
@@ -57,7 +49,7 @@ export function Header() {
             aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}
           >
-            <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+            <span className="sr-only">{open ? ariaLabels.menuClose : ariaLabels.menuOpen}</span>
             <span aria-hidden className="text-lg leading-none">
               {open ? "×" : "≡"}
             </span>
@@ -71,10 +63,10 @@ export function Header() {
         hidden={!open}
       >
         <nav
-          aria-label="Mobile primary"
+          aria-label={ariaLabels.navMobilePrimary}
           className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3 sm:px-6"
         >
-          {navItems.map((item) => (
+          {primaryNavItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
@@ -89,7 +81,7 @@ export function Header() {
             className="mt-2 inline-flex min-h-10 items-center justify-center rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-button-text"
             onClick={() => setOpen(false)}
           >
-            Resume
+            {headerChrome.resumeButton}
           </a>
         </nav>
       </div>

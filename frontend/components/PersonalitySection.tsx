@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { personality } from "@/lib/content";
+import { personalityMedia } from "@/lib/ui-copy";
 
 export function PersonalitySection() {
   return (
@@ -21,13 +22,13 @@ export function PersonalitySection() {
             <div className="relative mx-auto aspect-[4/5] w-full max-w-[220px] overflow-hidden rounded-xl">
               <Image
                 src="/images/BEK_3.jpeg"
-                alt="Brian E. Kane — personality and fashion snapshot"
+                alt={personalityMedia.imageAlt}
                 fill
                 className="object-cover"
                 sizes="220px"
               />
             </div>
-            <figcaption className="mt-3 text-xs text-secondary-text">The questionable-fashion era, documented.</figcaption>
+            <figcaption className="mt-3 text-xs text-secondary-text">{personalityMedia.figcaption}</figcaption>
           </figure>
         </div>
       </div>

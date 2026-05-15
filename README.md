@@ -1,6 +1,6 @@
-# BrianEKane.com — Professional landing site
+# BrianEKane.com: Professional landing site
 
-Marketing and recruiting homepage for **Brian E. Kane**, implemented as a statically optimized **Next.js** application. The site is intended to be linked from **LinkedIn**, GitHub, résumés, and email signatures so visitors—recruiters, hiring managers, and fellow engineers—can quickly assess technical depth, focus areas, and how work is structured in code.
+Marketing and recruiting homepage for **Brian E. Kane**, implemented as a statically optimized **Next.js** application. The site is intended to be linked from **LinkedIn**, GitHub, résumés, and email signatures so visitors (recruiters, hiring managers, and fellow engineers) can quickly assess technical depth, focus areas, and how work is structured in code.
 
 Product intent and detailed UX requirements live in [`REQUIREMENTS.md`](REQUIREMENTS.md). This README emphasizes **technology choices**, **architecture**, and **how to run or extend the project**.
 
@@ -147,7 +147,7 @@ Other useful commands:
 
 **Root directory:** Prefer setting Vercel **Root Directory** to **`frontend`** so `yarn.lock` is discovered naturally and [`frontend/vercel.json`](frontend/vercel.json) applies. If the project root is **`.`**, use root [`vercel.json`](vercel.json) so install/build run inside `frontend/` (otherwise a root-only `npm` flow can miss `next` on the path).
 
-**Domains:** Configure `brianekane.com` / `www` in Vercel and apply the DNS records they provide (e.g. Route 53). Do not guess A/CNAME targets—they can change.
+**Domains:** Configure `brianekane.com` / `www` in Vercel and apply the DNS records they provide (e.g. Route 53). Do not guess A/CNAME targets; they can change.
 
 **Environment variables:** Mirror [`.env.example`](.env.example) in **Vercel → Project → Settings → Environment Variables**. Redeploy after changes. For email, use a full `mailto:` URL for `PUBLIC_CONTACT_EMAIL` when set.
 

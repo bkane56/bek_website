@@ -1,4 +1,5 @@
 import { featuredProjects, statusLabel } from "@/lib/projects";
+import { externalLinkLabels, projectCard, sectionCopy } from "@/lib/ui-copy";
 
 type Project = (typeof featuredProjects)[number];
 
@@ -9,21 +10,21 @@ function projectActions(project: Project): ProjectAction[] {
   if (project.demoUrl) {
     actions.push({
       href: project.demoUrl,
-      label: "Open demo",
+      label: projectCard.openDemo,
       external: project.demoUrl.startsWith("http"),
     });
   }
   if (project.githubUrl) {
     actions.push({
       href: project.githubUrl,
-      label: "GitHub",
+      label: externalLinkLabels.github,
       external: project.githubUrl.startsWith("http"),
     });
   }
   if (project.caseStudyUrl && actions.length === 0) {
     actions.push({
       href: project.caseStudyUrl,
-      label: "View details",
+      label: projectCard.viewDetails,
       external: project.caseStudyUrl.startsWith("http"),
     });
   }
@@ -34,11 +35,9 @@ export function FeaturedProjects() {
   return (
     <section id="projects" aria-labelledby="projects-heading" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
       <h2 id="projects-heading" className="text-2xl font-bold tracking-tight text-primary-text">
-        Featured projects
+        {sectionCopy.projects.heading}
       </h2>
-      <p className="mt-2 max-w-prose text-secondary-text">
-        Cards are link-ready for demos, GitHub, or external case studies — whatever the project needs.
-      </p>
+      <p className="mt-2 max-w-prose text-secondary-text">{sectionCopy.projects.intro}</p>
       <div className="mt-10 grid gap-6 lg:grid-cols-2">
         {featuredProjects.map((project) => {
           const actions = projectActions(project);
@@ -92,7 +91,7 @@ export function FeaturedProjects() {
                     disabled
                     className="inline-flex min-h-10 cursor-not-allowed items-center justify-center rounded-lg border border-dashed border-border bg-muted px-4 py-2 text-sm font-medium text-secondary-text"
                   >
-                    Details coming soon
+                    {projectCard.detailsComingSoon}
                   </button>
                 )}
               </div>

@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { DEFAULT_THEME, THEME_STORAGE_KEY } from "@/lib/themes";
 import { siteMeta } from "@/lib/content";
+import { layoutCopy } from "@/lib/ui-copy";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -79,7 +80,7 @@ export default function RootLayout({
             href="#main-content"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-card focus:px-4 focus:py-2 focus:text-primary-text focus:shadow-lg focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-accent"
           >
-            Skip to main content
+            {layoutCopy.skipToMain}
           </a>
           <Header />
           <main id="main-content" className="flex-1" tabIndex={-1}>

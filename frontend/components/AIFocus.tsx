@@ -1,4 +1,5 @@
 import { aiFocus } from "@/lib/content";
+import { sectionCopy } from "@/lib/ui-copy";
 
 export function AIFocus() {
   return (
@@ -9,7 +10,7 @@ export function AIFocus() {
     >
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <h2 id="ai-focus-heading" className="text-2xl font-bold tracking-tight text-primary-text">
-          AI focus
+          {sectionCopy.aiFocus.heading}
         </h2>
         <p className="mt-4 max-w-prose text-pretty text-base leading-relaxed text-secondary-text">
           {aiFocus.intro}
