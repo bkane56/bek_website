@@ -36,7 +36,7 @@ flowchart LR
   subgraph sources["Discovery"]
     LI[LinkedIn profile]
     GH[GitHub profile]
-    CV[Résumé / email sig]
+    CV[Resume / email sig]
   end
 
   subgraph site["brianekane.com"]
@@ -66,20 +66,20 @@ The homepage composes **presentational sections** driven by **typed content modu
 ```mermaid
 flowchart TB
   subgraph config["Configuration"]
-    ENV["Repo-root `.env` / `frontend/.env.local`"]
-    NEXT["`next.config.ts` — loads env, exposes `PUBLIC_*` to client"]
+    ENV["Root .env plus frontend/.env.local"]
+    NEXT["next.config.ts loads env and exposes PUBLIC_ keys"]
   end
 
   subgraph domain["Domain data"]
-    CONTENT["`lib/content.ts`, `lib/projects.ts`, …"]
-    LINKS["`lib/site-links.ts`"]
-    RESUME["`lib/resume-files.ts` → `public/resume/`"]
+    CONTENT["lib/content.ts and lib/projects.ts"]
+    LINKS["lib/site-links.ts"]
+    RESUME["lib/resume-files.ts maps to public/resume"]
   end
 
   subgraph ui["Presentation"]
-    LAYOUT["`app/layout.tsx` — metadata, theme boot, shell"]
-    PAGE["`app/page.tsx` — section composition"]
-    COMP["`components/*` — Hero, About, FeaturedProjects, …"]
+    LAYOUT["app/layout.tsx metadata theme shell"]
+    PAGE["app/page.tsx composes sections"]
+    COMP["components Hero About FeaturedProjects etc"]
   end
 
   ENV --> NEXT
