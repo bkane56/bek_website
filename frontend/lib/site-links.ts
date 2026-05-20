@@ -5,7 +5,7 @@
 export const siteLinks = {
   email: process.env.PUBLIC_CONTACT_EMAIL ?? "mailto:bkane56@gmail.com",
   linkedIn:
-    process.env.PUBLIC_LINKEDIN_URL ?? "https://www.linkedin.com/in/brianekane",
+    process.env.PUBLIC_LINKEDIN_URL ?? "https://www.linkedin.com/in/brian-kane-396a8862/",
   github: process.env.PUBLIC_GITHUB_URL ?? "https://github.com/bkane56",
   nationalParkTripPlannerDemo:
     process.env.PUBLIC_NATIONAL_PARK_TRIP_PLANNER_URL ??
