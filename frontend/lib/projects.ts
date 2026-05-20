@@ -56,7 +56,7 @@ export const featuredProjects: ProjectCard[] = [
     title: "National Park Trip Planner",
     description:
       "Plan visits to U.S. national parks with an interactive assistant powered by structured park data and LLM-driven suggestions.",
-    techStack: ["Python", "Gradio", "Hugging Face Spaces", "LLM"],
+    techStack: ["CrewAI", "Multi Agent", "Python", "Gradio", "Hugging Face Spaces", "LLM"],
     status: "live",
     demoUrl: siteLinks.nationalParkTripPlannerDemo,
     githubUrl: siteLinks.nationalParkTripPlannerRepo,
