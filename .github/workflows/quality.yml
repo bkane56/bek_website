@@ -7,16 +7,14 @@ on:
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20.9.0
+          node-version: 24
           cache: yarn
           cache-dependency-path: frontend/yarn.lock
 
@@ -28,8 +26,18 @@ jobs:
           node --version
           yarn --version
 
-      - name: Install dependencies
-        run: yarn --cwd frontend install --frozen-lockfile
+      - name: Install dependencies (retry on transient network failures)
+        run: |
+          for attempt in 1 2 3; do
+            yarn --cwd frontend install --frozen-lockfile --network-timeout 600000 && exit 0
+            echo "Install attempt ${attempt} failed."
+            if [ "${attempt}" -lt 3 ]; then
+              echo "Retrying in 5 seconds..."
+              sleep 5
+            fi
+          done
+          echo "Dependency installation failed after 3 attempts."
+          exit 1
 
       - name: Lint
         run: yarn --cwd frontend lint
