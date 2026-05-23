@@ -127,7 +127,7 @@ flowchart TB
 
 Prerequisites:
 
-- Node.js >= 20.9.0
+- Node.js >= 20.19.0
 - Yarn
 
 Setup:
