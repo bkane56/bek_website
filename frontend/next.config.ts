@@ -10,7 +10,7 @@ const repoRoot = path.resolve(frontendDir, "..");
 loadEnvConfig(repoRoot);
 loadEnvConfig(frontendDir);
 
-const PUBLIC_ENV_KEYS = [
+export const PUBLIC_ENV_KEYS = [
   "PUBLIC_CONTACT_EMAIL",
   "PUBLIC_LINKEDIN_URL",
   "PUBLIC_GITHUB_URL",
@@ -19,7 +19,7 @@ const PUBLIC_ENV_KEYS = [
 ] as const;
 
 /** Expose `PUBLIC_*` to the browser without the `NEXT_PUBLIC_` prefix. */
-function clientPublicEnv(): Record<string, string> {
+export function clientPublicEnv(): Record<string, string> {
   const env: Record<string, string> = {};
   for (const key of PUBLIC_ENV_KEYS) {
     const value = process.env[key];
