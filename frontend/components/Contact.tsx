@@ -20,7 +20,7 @@ export function Contact() {
           <a
             href={siteLinks.linkedIn}
             className="font-medium text-accent hover:underline"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             target="_blank"
           >
             {externalLinkLabels.linkedIn}
@@ -30,7 +30,7 @@ export function Contact() {
           <a
             href={siteLinks.github}
             className="font-medium text-accent hover:underline"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             target="_blank"
           >
             {externalLinkLabels.github}

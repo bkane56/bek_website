@@ -24,7 +24,7 @@ export function Footer() {
             <a
               href={siteLinks.linkedIn}
               className="text-sm font-medium text-secondary-text hover:text-primary-text"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               target="_blank"
             >
               {externalLinkLabels.linkedIn}
@@ -32,7 +32,7 @@ export function Footer() {
             <a
               href={siteLinks.github}
               className="text-sm font-medium text-secondary-text hover:text-primary-text"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               target="_blank"
             >
               {externalLinkLabels.github}

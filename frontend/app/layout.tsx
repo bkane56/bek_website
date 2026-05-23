@@ -39,11 +39,20 @@ export const metadata: Metadata = {
     siteName: siteMeta.shortTitle,
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/images/BEK_2.png",
+        width: 1200,
+        height: 630,
+        alt: `${siteMeta.displayName} professional headshot`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteMeta.siteTitle,
     description: siteMeta.description,
+    images: ["/images/BEK_2.png"],
   },
 };
 
