@@ -1,8 +1,8 @@
 BRIAN E. KANE
 AI Engineer | Agentic AI Engineer | Applied AI Solutions Architect
-River Ranch, Florida  |  Remote Only  |  LinkedIn: add  |  GitHub: add  |  BrianEKane.com
+River Ranch, Florida  |  Remote Only  |  LinkedIn: https://www.linkedin.com/in/brian-kane-396a8862/  |  GitHub: https://github.com/bkane56  |  BrianEKane.com
 PROFESSIONAL SUMMARY
-AI-focused software engineer with 10+ years of enterprise full-stack experience and hands-on applied AI work spanning LLM applications, agentic AI, retrieval-augmented generation, MCP-based tooling, vector databases, prompt and context engineering, and autonomous workflows. Built a strong production engineering foundation through large-scale healthcare platform modernization using Java, Spring Boot, React, Python, Docker, Terraform, AWS, and cloud-native delivery practices. Combines real-world enterprise delivery, accessibility, cloud migration, and stakeholder partnership with a fast-ramping AI engineering toolkit suited for AI Engineer, Agentic AI Engineer, and AI Solutions Architect roles.
+AI-focused software engineer with 11+ years of enterprise full-stack experience and hands-on applied AI work spanning LLM applications, agentic AI, retrieval-augmented generation, MCP-based tooling, vector databases, prompt and context engineering, and autonomous workflows. Built a strong production engineering foundation through large-scale healthcare platform modernization using Java, Spring Boot, React, Python, Docker, Terraform, AWS, and cloud-native delivery practices. Combines real-world enterprise delivery, accessibility, cloud migration, and stakeholder partnership with a fast-ramping AI engineering toolkit suited for AI Engineer, Agentic AI Engineer, and AI Solutions Architect roles.
 CORE SKILLS
 AI / Applied AI | LLM applications, agentic AI, OpenAI models, RAG, MCP, vector databases, prompt engineering, context engineering, autonomous workflows
 Languages       | Python, Java, JavaScript, TypeScript
