@@ -14,6 +14,7 @@ The intended host is **[Vercel](https://vercel.com)**. Summary:
    - **If Root Directory is `.`:** There is **no** `yarn.lock` at the repo root, only under [`frontend/`](../frontend/), so Vercel may default to **`npm install`** / **`npm run build`** from the thin root [`package.json`](../package.json). That can skip installing `frontend` dependencies before `yarn --cwd frontend build`, often failing with **`next: command not found`**. Root [`vercel.json`](../vercel.json) sets **`installCommand`** / **`buildCommand`** to run Yarn inside **`frontend/`**, unless Project Settings overrides supersede them.
    - **Install Command / Build Command:** Leave dashboard **Overrides** **off** unless you intentionally need custom commands. If Build stays pinned to `npm run build`, overrides **take precedence** over `vercel.json`; disable overrides so the Yarn commands apply (root `vercel.json` when Root Directory is `.`, or `frontend/vercel.json` when it is `frontend`).
    - **Framework Preset:** **Next.js**.
+   - **Output Directory:** leave unset for Next.js (do not set `public`).
 3. After the first deployment, Vercel provides a preview URL (e.g. `something.vercel.app`).
 4. **Project → Settings → Domains:** Add **`brianekane.com`** and **`www.brianekane.com`**. Use **only** the DNS records Vercel lists (do not guess A/CNAME values; they change).
 5. In **AWS Route 53** (Hosted Zone for `brianekane.com`), create those records and remove conflicting old `A`/`CNAME` rows. Use credentials with `route53:ChangeResourceRecordSets` on that zone if IAM restricts edits.
