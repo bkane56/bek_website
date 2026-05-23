@@ -9,7 +9,7 @@ export const siteLinks = {
   github: process.env.PUBLIC_GITHUB_URL ?? "https://github.com/bkane56",
   nationalParkTripPlannerDemo:
     process.env.PUBLIC_NATIONAL_PARK_TRIP_PLANNER_URL ??
-    "https://huggingface.co/spaces/Bkane56/national-park-trip-planner",
+    "https://bkane56-national-park-trip-planner.hf.space",
   nationalParkTripPlannerRepo:
     process.env.PUBLIC_NATIONAL_PARK_TRIP_PLANNER_GITHUB_URL ??
     "https://github.com/bkane56/national_park_crew",
