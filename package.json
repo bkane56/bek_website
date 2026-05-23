@@ -2,6 +2,9 @@
   "name": "bek_website",
   "version": "0.1.0",
   "private": true,
+  "devDependencies": {
+    "next": "16.2.4"
+  },
   "scripts": {
     "dev": "yarn --cwd frontend dev",
     "build": "yarn --cwd frontend build",
