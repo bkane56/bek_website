@@ -1,177 +1,221 @@
-# BrianEKane.com: Professional landing site
+# BrianEKane.com
 
-Marketing and recruiting homepage for **Brian E. Kane**, implemented as a statically optimized **Next.js** application. The site is intended to be linked from **LinkedIn**, GitHub, résumés, and email signatures so visitors (recruiters, hiring managers, and fellow engineers) can quickly assess technical depth, focus areas, and how work is structured in code.
+Professional portfolio and recruiting site for Brian E. Kane.
 
-Product intent and detailed UX requirements live in [`REQUIREMENTS.md`](REQUIREMENTS.md). This README emphasizes **technology choices**, **architecture**, and **how to run or extend the project**.
+- Live site: [https://www.brianekane.com](https://www.brianekane.com)
+- Focus: senior software engineering, full-stack delivery, and applied AI engineering
+- Stack: Next.js 16 App Router, React 19, TypeScript, Tailwind CSS v4, Vitest
 
----
+`REQUIREMENTS.md` is the product brief. This README is the source of truth for implementation, architecture, setup, and quality gates.
 
-## Technology stack
+## Quick Links
 
-| Layer | Choices | Notes |
-|--------|---------|--------|
-| **Framework** | [Next.js](https://nextjs.org/) **16** (App Router) | Server-first defaults; React Server Components where applicable |
-| **UI runtime** | [React](https://react.dev/) **19** | Concurrent features aligned with current Next.js |
-| **Language** | [TypeScript](https://www.typescriptlang.org/) **5** | Strict typing across app, components, and tests |
-| **Styling** | [Tailwind CSS](https://tailwindcss.com/) **4** | Utility-first layout and design tokens via CSS variables |
-| **Fonts** | `next/font/google` (Geist, Geist Mono) | Self-hosted subset loading, no layout shift from webfont swaps |
-| **Testing** | [Vitest](https://vitest.dev/) **4**, [Testing Library](https://testing-library.com/), [jsdom](https://github.com/jsdom/jsdom) | Unit/component tests with **≥90% line coverage** threshold on included paths (see `frontend/vitest.config.ts`) |
-| **Linting** | [ESLint](https://eslint.org/) **9**, `eslint-config-next` | Aligns with Next.js 16 defaults |
-| **Package manager** | [Yarn](https://yarnpkg.com/) (Classic) | Lockfile under `frontend/`; repo root delegates scripts with `yarn --cwd frontend` |
-| **Runtime** | Node.js **≥ 20.9** | Matches `engines` in `frontend/package.json` |
-| **Hosting** | [Vercel](https://vercel.com/) | Next.js preset; build/install commands configured per root vs `frontend/` (see [Deployment](#deployment) and [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)) |
+- Product requirements: [`REQUIREMENTS.md`](REQUIREMENTS.md)
+- Deployment runbook: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)
+- App root: [`frontend`](frontend)
+- Homepage composition entry: [`frontend/app/page.tsx`](frontend/app/page.tsx)
+- Metadata and shell layout: [`frontend/app/layout.tsx`](frontend/app/layout.tsx)
 
-There is **no separate backend service** in this repository: the site is a content-forward frontend with optional **public** configuration injected at build time.
+## Five Minute Reviewer Tour
 
----
+1. Start with [`frontend/app/page.tsx`](frontend/app/page.tsx) to see section composition and page flow.
+2. Review [`frontend/lib/content.ts`](frontend/lib/content.ts), [`frontend/lib/projects.ts`](frontend/lib/projects.ts), and [`frontend/lib/site-links.ts`](frontend/lib/site-links.ts) for typed content and environment-backed links.
+3. Inspect [`frontend/components/FeaturedProjects.tsx`](frontend/components/FeaturedProjects.tsx) and [`frontend/components/ThemeProvider.tsx`](frontend/components/ThemeProvider.tsx) for interaction and state boundaries.
+4. Check [`frontend/next.config.ts`](frontend/next.config.ts) for env loading and `PUBLIC_*` allow-list forwarding.
+5. Read representative tests:
+   - [`frontend/components/FeaturedProjects.test.tsx`](frontend/components/FeaturedProjects.test.tsx)
+   - [`frontend/components/FeaturedProjects.real-data.test.tsx`](frontend/components/FeaturedProjects.real-data.test.tsx)
+   - [`frontend/next.config.test.ts`](frontend/next.config.test.ts)
 
-## Architecture (for reviewers)
+## Technology Stack
 
-### System context
+| Layer | Choice | Notes |
+|---|---|---|
+| Framework | [Next.js](https://nextjs.org/) 16 (App Router) | Server-first rendering with client islands only where needed |
+| UI runtime | [React](https://react.dev/) 19 | Modern React APIs aligned with Next.js 16 |
+| Language | [TypeScript](https://www.typescriptlang.org/) 5 | Strict typing across app and tests |
+| Styling | [Tailwind CSS](https://tailwindcss.com/) 4 | Utility-first styling with theme tokens in CSS variables |
+| Testing | [Vitest](https://vitest.dev/), Testing Library, jsdom | Fast unit/component testing with behavior-focused assertions |
+| Linting | ESLint 9 + `eslint-config-next` | Next.js-aligned lint rules |
+| CI | GitHub Actions | Lint, test, and coverage checks on push/PR |
+| Hosting | [Vercel](https://vercel.com/) | Deployment flow documented in `docs/DEPLOYMENT.md` |
 
-How the property fits into a typical visitor journey:
+No separate backend service lives in this repository. This project is a statically optimized frontend site with public config values injected at build time.
+
+## Architecture
+
+### System Context
 
 ```mermaid
 flowchart LR
-  subgraph sources["Discovery"]
-    LI[LinkedIn profile]
-    GH[GitHub profile]
-    CV[Resume / email sig]
+  subgraph discovery [DiscoverySources]
+    linkedIn[LinkedIn]
+    github[GitHub]
+    resume[ResumeLinks]
   end
 
-  subgraph site["brianekane.com"]
-    EDGE[Vercel CDN / Edge]
-    APP[Next.js App Router]
+  subgraph site [PortfolioSite]
+    vercelEdge[VercelEdge]
+    nextApp[NextAppRouter]
   end
 
-  subgraph external["Outbound"]
-    MAIL[mailto / contact]
-    DEMO[Project demos]
-    SOCIAL[Social / code hosts]
+  subgraph outbound [OutboundDestinations]
+    contact[ContactLinks]
+    demos[ProjectDemos]
+    profiles[SocialProfiles]
   end
 
-  LI --> EDGE
-  GH --> EDGE
-  CV --> EDGE
-  EDGE --> APP
-  APP --> MAIL
-  APP --> DEMO
-  APP --> SOCIAL
+  linkedIn --> vercelEdge
+  github --> vercelEdge
+  resume --> vercelEdge
+  vercelEdge --> nextApp
+  nextApp --> contact
+  nextApp --> demos
+  nextApp --> profiles
 ```
 
-### Application structure
-
-The homepage composes **presentational sections** driven by **typed content modules** and **environment-backed links**. That separation keeps copy and URLs editable without restructuring layout code.
+### Application Composition
 
 ```mermaid
 flowchart TB
-  subgraph config["Configuration"]
-    ENV["Root .env plus frontend/.env.local"]
-    NEXT["next.config.ts loads env and exposes PUBLIC_ keys"]
+  subgraph config [Configuration]
+    rootEnv[RootEnvFiles]
+    nextConfig[NextConfigPublicAllowlist]
   end
 
-  subgraph domain["Domain data"]
-    CONTENT["lib/content.ts and lib/projects.ts"]
-    LINKS["lib/site-links.ts"]
-    RESUME["lib/resume-files.ts maps to public/resume"]
+  subgraph domain [DomainModules]
+    content[ContentModules]
+    links[SiteLinksModule]
+    resumeMap[ResumeFilesMap]
   end
 
-  subgraph ui["Presentation"]
-    LAYOUT["app/layout.tsx metadata theme shell"]
-    PAGE["app/page.tsx composes sections"]
-    COMP["components Hero About FeaturedProjects etc"]
+  subgraph ui [UIComposition]
+    layout[RootLayout]
+    page[HomePage]
+    sections[SectionComponents]
   end
 
-  ENV --> NEXT
-  NEXT --> LINKS
-  CONTENT --> COMP
-  LINKS --> COMP
-  RESUME --> COMP
-  LAYOUT --> PAGE
-  COMP --> PAGE
+  rootEnv --> nextConfig
+  nextConfig --> links
+  content --> sections
+  links --> sections
+  resumeMap --> sections
+  layout --> page
+  sections --> page
 ```
 
-### Public environment variables
+## Key Technical Decisions
 
-Client-visible URLs and contact targets use a deliberate **`PUBLIC_*`** prefix (not `NEXT_PUBLIC_*`). [`frontend/next.config.ts`](frontend/next.config.ts) reads the **repository root** `.env` first, then `frontend/` env files, and forwards an allow-listed set into the browser bundle. Names and placeholders are documented in [`.env.example`](.env.example).
+- `PUBLIC_*` env contract with explicit allow-list in [`frontend/next.config.ts`](frontend/next.config.ts) instead of broad client env exposure.
+- Typed content modules in [`frontend/lib`](frontend/lib) instead of CMS dependency to keep a small portfolio surface maintainable.
+- `frontend` as explicit app root, with root script delegation for consistent local and CI commands.
+- Vitest + Testing Library for fast iteration and deterministic UI behavior checks, with coverage thresholds for included production paths.
 
-### Themes and accessibility
+## Repository Layout
 
-- **Themes:** Three palettes; preference persisted in **`localStorage`** under `brianekane-theme` (see [`frontend/lib/themes.ts`](frontend/lib/themes.ts)). A small **before-interactive** script applies the saved theme to avoid flash of wrong theme.
-- **Accessibility:** Skip link to `#main-content`, semantic landmarks, and focus-visible patterns in the shell (`layout.tsx`).
+| Path | Purpose |
+|---|---|
+| [`frontend/`](frontend/) | Next.js app, lockfile, and source |
+| [`frontend/app/`](frontend/app/) | App Router entrypoints and global styles |
+| [`frontend/components/`](frontend/components/) | UI components and sections |
+| [`frontend/lib/`](frontend/lib/) | Typed content, links, project data, theme metadata |
+| [`frontend/public/`](frontend/public/) | Images and downloadable resume assets |
+| [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) | Vercel and DNS deployment procedures |
+| [`.github/workflows/quality.yml`](.github/workflows/quality.yml) | CI quality checks |
 
----
+## Local Development
 
-## Repository layout
+Prerequisites:
 
-| Path | Role |
-|------|------|
-| [`frontend/`](frontend/) | Next.js application root (dependencies, `yarn.lock`, source) |
-| [`frontend/app/`](frontend/app/) | App Router entry: `layout.tsx`, `page.tsx`, global styles |
-| [`frontend/components/`](frontend/components/) | Section and shell UI |
-| [`frontend/lib/`](frontend/lib/) | Copy, projects, themes, résumé paths, site links |
-| [`frontend/public/`](frontend/public/) | Static assets (images, résumé downloads) |
-| [`package.json`](package.json) | Thin root scripts delegating to `frontend/` |
-| [`vercel.json`](vercel.json) | Install/build when Vercel root is **`.`** |
-| [`frontend/vercel.json`](frontend/vercel.json) | Install/build when Vercel **Root Directory** is **`frontend`** |
-| [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) | Step-by-step Vercel import, DNS, env vars, and troubleshooting |
+- Node.js >= 20.9.0
+- Yarn
 
----
-
-## Local development
-
-**Prerequisites:** Node.js **≥ 20.9** and **Yarn**.
+Setup:
 
 ```bash
+cp .env.example .env
 yarn --cwd frontend install
 yarn dev
 ```
 
 Open `http://localhost:3000`.
 
-Other useful commands:
+Common commands from repository root:
 
 | Command | Purpose |
-|---------|---------|
-| `yarn build` | Production build (`yarn --cwd frontend build`) |
-| `yarn start` | Serve production output locally |
-| `yarn lint` | ESLint across the frontend |
-| `yarn --cwd frontend test` | Vitest run |
-| `yarn --cwd frontend test:coverage` | Coverage report (thresholds in `vitest.config.ts`) |
+|---|---|
+| `yarn dev` | Start local development server |
+| `yarn build` | Build production artifacts |
+| `yarn start` | Run production server |
+| `yarn lint` | Run ESLint |
+| `yarn test` | Run Vitest suite |
+| `yarn test:coverage` | Run Vitest with coverage report |
 
----
+## Configuration
+
+Environment variables are declared in [`.env.example`](.env.example) and loaded in this order:
+
+1. repo root `.env`
+2. `frontend/.env.local` (overrides root values)
+
+Browser-visible keys are allow-listed `PUBLIC_*` values only. For contact email, set `PUBLIC_CONTACT_EMAIL` as a full `mailto:` URL when overriding.
+
+## Testing And Quality Gates
+
+- Test runner: Vitest
+- UI testing: Testing Library + jsdom
+- Coverage policy: line threshold is set to 90% for included paths in [`frontend/vitest.config.ts`](frontend/vitest.config.ts)
+- CI workflow: [`.github/workflows/quality.yml`](.github/workflows/quality.yml) runs lint, tests, and coverage on push and pull requests
+
+Current coverage gate is intentionally scoped to selected production files listed in `vitest.config.ts`, not every file in the repository.
+
+## Accessibility And Mobile Responsiveness
+
+This project includes explicit accessibility and mobile checks as part of hiring-readiness:
+
+- Semantic landmarks and skip navigation are implemented in [`frontend/app/layout.tsx`](frontend/app/layout.tsx) and verified by [`frontend/app/layout.accessibility.test.tsx`](frontend/app/layout.accessibility.test.tsx).
+- Mobile navigation behavior and ARIA state transitions are verified in [`frontend/components/Header.test.tsx`](frontend/components/Header.test.tsx).
+- Theme controls use grouped semantics and pressed-state indicators in [`frontend/components/ThemeSelector.tsx`](frontend/components/ThemeSelector.tsx).
+- Interactive controls use touch-friendly target sizing (`min-h-10` or `min-h-11`) across primary CTAs and navigation.
+- External links use `noopener noreferrer` on `target="_blank"` profile links (validated in [`frontend/components/ContactFooterLinks.test.tsx`](frontend/components/ContactFooterLinks.test.tsx)).
+- Reduced motion preference is respected via `prefers-reduced-motion` handling in [`frontend/app/globals.css`](frontend/app/globals.css).
+
+Quick local validation flow:
+
+```bash
+yarn lint
+yarn test
+yarn build
+```
 
 ## Deployment
 
-**Intended host:** Vercel (Next.js framework preset).
+Target platform: Vercel with Next.js preset.
 
-**Root directory:** Prefer setting Vercel **Root Directory** to **`frontend`** so `yarn.lock` is discovered naturally and [`frontend/vercel.json`](frontend/vercel.json) applies. If the project root is **`.`**, use root [`vercel.json`](vercel.json) so install/build run inside `frontend/` (otherwise a root-only `npm` flow can miss `next` on the path).
+- Preferred Vercel root directory: `frontend`
+- If Vercel root is `.`, use root [`vercel.json`](vercel.json)
+- If Vercel root is `frontend`, use [`frontend/vercel.json`](frontend/vercel.json)
 
-**Domains:** Configure `brianekane.com` / `www` in Vercel and apply the DNS records they provide (e.g. Route 53). Do not guess A/CNAME targets; they can change.
+Full deployment, DNS, and troubleshooting details are in [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
 
-**Environment variables:** Mirror [`.env.example`](.env.example) in **Vercel → Project → Settings → Environment Variables**. Redeploy after changes. For email, use a full `mailto:` URL for `PUBLIC_CONTACT_EMAIL` when set.
+## Roadmap
 
-For the full walkthrough (root directory vs `.`, dashboard overrides, “preview without project”, DNS, and troubleshooting), see **[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)**.
+- Ship AI Digital Twin experience
+- Add project case studies for private and pending builds
+- Expand AI workflow portfolio with architecture write-ups
 
----
+## Documentation Map
 
-## Editing content
+- [`README.md`](README.md): implementation and engineering guide
+- [`REQUIREMENTS.md`](REQUIREMENTS.md): product and UX intent
+- [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md): operations and deployment
+- [`AGENTS.md`](AGENTS.md): agent automation instructions
 
-| Concern | Primary files |
-|---------|----------------|
-| Narrative / SEO meta | [`frontend/lib/content.ts`](frontend/lib/content.ts), metadata in [`frontend/app/layout.tsx`](frontend/app/layout.tsx) |
-| Featured projects | [`frontend/lib/projects.ts`](frontend/lib/projects.ts) |
-| External links | [`frontend/lib/site-links.ts`](frontend/lib/site-links.ts) + env vars |
-| Résumé downloads | [`frontend/lib/resume-files.ts`](frontend/lib/resume-files.ts), files under [`frontend/public/resume/`](frontend/public/resume/) |
-| Imagery | [`frontend/public/images/`](frontend/public/images/) |
+## Engineering Notes
 
----
+This repository is optimized for reviewer clarity:
 
-## Engineering philosophy (what this repo demonstrates)
-
-- **Separation of concerns:** UI components vs centralized content and link configuration.
-- **Typed, testable modules:** Vitest + Testing Library on sections and critical libs; coverage gates on selected paths.
-- **Operational clarity:** Explicit Node engine, frozen lockfile-friendly Vercel commands, and documented env contract for recruiters-friendly links (LinkedIn, GitHub, demos).
-- **Performance-minded defaults:** App Router, font optimization, static-friendly homepage composition.
-
-For stakeholders who care about *what the page must communicate*, continue with [`REQUIREMENTS.md`](REQUIREMENTS.md).
+- clear module boundaries between content, links, and UI composition
+- explicit env contracts and deployment behavior
+- automated quality checks through CI
+- practical tests around user-visible behavior and config contracts
