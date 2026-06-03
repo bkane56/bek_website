@@ -14,6 +14,8 @@ describe("next.config PUBLIC env forwarding", () => {
     process.env.PUBLIC_GITHUB_URL = "https://github.com/test";
     process.env.PUBLIC_NATIONAL_PARK_TRIP_PLANNER_URL = "https://example.com/demo";
     process.env.PUBLIC_NATIONAL_PARK_TRIP_PLANNER_GITHUB_URL = "https://github.com/test/demo";
+    process.env.PUBLIC_CONSULTATION_AI_DEMO_URL = "https://example.com/medinotes";
+    process.env.PUBLIC_CONSULTATION_AI_GITHUB_URL = "https://github.com/test/consultationAI";
     process.env.PUBLIC_NOT_ALLOWLISTED = "should-not-pass";
 
     const { clientPublicEnv, PUBLIC_ENV_KEYS } = await import("./next.config");

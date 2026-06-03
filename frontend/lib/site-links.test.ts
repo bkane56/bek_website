@@ -12,6 +12,8 @@ describe("siteLinks", () => {
       "PUBLIC_GITHUB_URL",
       "PUBLIC_NATIONAL_PARK_TRIP_PLANNER_URL",
       "PUBLIC_NATIONAL_PARK_TRIP_PLANNER_GITHUB_URL",
+      "PUBLIC_CONSULTATION_AI_DEMO_URL",
+      "PUBLIC_CONSULTATION_AI_GITHUB_URL",
     ] as const) {
       delete process.env[key];
     }
@@ -55,5 +57,17 @@ describe("siteLinks", () => {
     process.env.PUBLIC_NATIONAL_PARK_TRIP_PLANNER_GITHUB_URL = "https://github.example/np";
     const { siteLinks } = await import("./site-links");
     expect(siteLinks.nationalParkTripPlannerRepo).toBe("https://github.example/np");
+  });
+
+  it("respects PUBLIC_CONSULTATION_AI_DEMO_URL when present", async () => {
+    process.env.PUBLIC_CONSULTATION_AI_DEMO_URL = "https://demo.example/medinotes";
+    const { siteLinks } = await import("./site-links");
+    expect(siteLinks.consultationAiDemo).toBe("https://demo.example/medinotes");
+  });
+
+  it("respects PUBLIC_CONSULTATION_AI_GITHUB_URL when present", async () => {
+    process.env.PUBLIC_CONSULTATION_AI_GITHUB_URL = "https://github.example/consultationAI";
+    const { siteLinks } = await import("./site-links");
+    expect(siteLinks.consultationAiRepo).toBe("https://github.example/consultationAI");
   });
 });

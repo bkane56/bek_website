@@ -13,4 +13,9 @@ export const siteLinks = {
   nationalParkTripPlannerRepo:
     process.env.PUBLIC_NATIONAL_PARK_TRIP_PLANNER_GITHUB_URL ??
     "https://github.com/bkane56/national_park_crew",
+  consultationAiDemo:
+    process.env.PUBLIC_CONSULTATION_AI_DEMO_URL ?? "https://saas-bice-iota.vercel.app/",
+  consultationAiRepo:
+    process.env.PUBLIC_CONSULTATION_AI_GITHUB_URL ??
+    "https://github.com/bkane56/consultationAI",
 } as const;

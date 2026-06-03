@@ -198,6 +198,29 @@ Target platform: Vercel with Next.js preset.
 
 Full deployment, DNS, and troubleshooting details are in [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
 
+## Featured Projects Catalog
+
+Homepage cards read from [`frontend/lib/projects.ts`](frontend/lib/projects.ts) at build time. Update that file when adding or changing tiles; use this section as the human-editable catalog and copy reference.
+
+Override demo and repo URLs via `PUBLIC_*` keys in [`.env.example`](.env.example) (see [`frontend/lib/site-links.ts`](frontend/lib/site-links.ts)).
+
+| Title | Status | Demo | Repo |
+|---|---|---|---|
+| AI Digital Twin | coming-soon | — | — |
+| Agentic Coding Team | private-code | — | — |
+| React Enterprise Application | live | — | GitHub profile |
+| RAG Document Assistant | case-study | — | — |
+| National Park Trip Planner | live | Hugging Face Space | `national_park_crew` |
+| MediNotes Pro | live | [Vercel demo](https://saas-bice-iota.vercel.app/) | [consultationAI](https://github.com/bkane56/consultationAI) |
+
+### MediNotes Pro
+
+Healthcare AI documentation assistant: clinician consultation input becomes structured visit summaries, doctor next steps, and patient-friendly email drafts.
+
+- **Privacy architecture:** Ollama runs in a Docker container (local: `ollama serve`; production: Render private Ollama service). Browser talks to FastAPI; backend calls private Ollama. No third-party LLM API on the primary deployed inference path, reducing PHI/PII exposure to external model vendors.
+- **Demo boundary:** Synthetic patient data only. Not a production clinical system and not a HIPAA compliance claim.
+- **Env keys:** `PUBLIC_CONSULTATION_AI_DEMO_URL`, `PUBLIC_CONSULTATION_AI_GITHUB_URL`
+
 ## Roadmap
 
 - Ship AI Digital Twin experience

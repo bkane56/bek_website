@@ -32,4 +32,12 @@ describe("featuredProjects data", () => {
     expect(nationalPark!.demoUrl).toBe(siteLinks.nationalParkTripPlannerDemo);
     expect(nationalPark!.githubUrl).toBe(siteLinks.nationalParkTripPlannerRepo);
   });
+
+  it("links MediNotes Pro to the Vercel demo and consultationAI GitHub repo", () => {
+    const mediNotes = featuredProjects.find((p) => p.title === "MediNotes Pro");
+    expect(mediNotes).toBeDefined();
+    expect(mediNotes!.status).toBe("live");
+    expect(mediNotes!.demoUrl).toBe(siteLinks.consultationAiDemo);
+    expect(mediNotes!.githubUrl).toBe(siteLinks.consultationAiRepo);
+  });
 });

@@ -61,6 +61,30 @@ export const featuredProjects: ProjectCard[] = [
     demoUrl: siteLinks.nationalParkTripPlannerDemo,
     githubUrl: siteLinks.nationalParkTripPlannerRepo,
   },
+  {
+    title: "MediNotes Pro",
+    description:
+      "Healthcare-focused AI assistant that turns clinician consultation notes into structured visit summaries, doctor next steps, and patient-friendly email drafts. Inference uses Ollama in a private Docker container on the backend so notes are not sent to third-party LLM APIs, supporting a PHI/PII-conscious demo path (synthetic data only).",
+    problem:
+      "Clinical documentation is time-consuming; sending real consultation text to public LLM APIs raises PHI/PII exposure concerns.",
+    solution:
+      "Browser calls a controlled FastAPI backend; the backend routes model work to containerized Ollama over private networking (Render private service in production), not a third-party inference API in the deployed demo path.",
+    techStack: [
+      "Ollama (private container)",
+      "Docker",
+      "FastAPI",
+      "Python",
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Clerk",
+      "SSE streaming",
+      "Vercel / Render",
+    ],
+    status: "live",
+    demoUrl: siteLinks.consultationAiDemo,
+    githubUrl: siteLinks.consultationAiRepo,
+  },
 ];
 
 export function statusLabel(status: ProjectStatus): string {
