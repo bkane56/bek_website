@@ -26,6 +26,14 @@ describe("featuredProjects data", () => {
     expect(reactEnterprise!.githubUrl).toBe(siteLinks.github);
   });
 
+  it("links Insurellm RAG Explorer to the Hugging Face demo and GitHub repo", () => {
+    const ragExplorer = featuredProjects.find((p) => p.title === "Insurellm RAG Explorer");
+    expect(ragExplorer).toBeDefined();
+    expect(ragExplorer!.status).toBe("live");
+    expect(ragExplorer!.demoUrl).toBe(siteLinks.insurellmRagExplorerDemo);
+    expect(ragExplorer!.githubUrl).toBe(siteLinks.insurellmRagExplorerRepo);
+  });
+
   it("links National Park Trip Planner to the Hugging Face demo and GitHub repo", () => {
     const nationalPark = featuredProjects.find((p) => p.title === "National Park Trip Planner");
     expect(nationalPark).toBeDefined();

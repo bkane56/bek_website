@@ -18,4 +18,10 @@ export const siteLinks = {
   consultationAiRepo:
     process.env.PUBLIC_CONSULTATION_AI_GITHUB_URL ??
     "https://github.com/bkane56/consultationAI",
+  insurellmRagExplorerDemo:
+    process.env.PUBLIC_INSURELLM_RAG_EXPLORER_URL ??
+    "https://huggingface.co/spaces/Bkane56/insurellm-rag-explorer",
+  insurellmRagExplorerRepo:
+    process.env.PUBLIC_INSURELLM_RAG_EXPLORER_GITHUB_URL ??
+    "https://github.com/bkane56/rag_demo",
 } as const;

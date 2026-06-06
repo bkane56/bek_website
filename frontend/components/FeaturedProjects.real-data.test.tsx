@@ -6,7 +6,7 @@ describe("FeaturedProjects real data behavior", () => {
   it("renders expected status badges from real project data", () => {
     render(<FeaturedProjects />);
 
-    expect(screen.getAllByText("Live")).toHaveLength(3);
+    expect(screen.getAllByText("Live")).toHaveLength(4);
     expect(screen.getAllByText("Coming Soon")).toHaveLength(1);
     expect(screen.getAllByText("Case Study Pending")).toHaveLength(1);
     expect(screen.getAllByText("Private Code / Write-Up Coming")).toHaveLength(1);
@@ -30,6 +30,13 @@ describe("FeaturedProjects real data behavior", () => {
     expect(
       within(caseStudyCard!).getByRole("button", { name: /details coming soon/i }),
     ).toBeDisabled();
+
+    const ragExplorerCard = screen
+      .getByRole("heading", { name: "Insurellm RAG Explorer" })
+      .closest("article");
+    expect(ragExplorerCard).not.toBeNull();
+    expect(within(ragExplorerCard!).getByRole("link", { name: /open demo/i })).toBeVisible();
+    expect(within(ragExplorerCard!).getByRole("link", { name: /^github$/i })).toBeVisible();
 
     const parkPlannerCard = screen
       .getByRole("heading", { name: "National Park Trip Planner" })
