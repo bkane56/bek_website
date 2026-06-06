@@ -53,6 +53,24 @@ export const featuredProjects: ProjectCard[] = [
     status: "case-study",
   },
   {
+    title: "Insurellm RAG Explorer",
+    description:
+      "Interactive knowledge base explorer with bundled markdown documents. Switch between embedding models to compare retrieval behavior, visualize the vector store in 2D and 3D t-SNE plots, and ask grounded questions with cited sources.",
+    techStack: [
+      "Python",
+      "Gradio",
+      "ChromaDB",
+      "LangChain",
+      "Hugging Face Embeddings",
+      "OpenAI",
+      "Plotly",
+      "t-SNE",
+    ],
+    status: "live",
+    demoUrl: siteLinks.insurellmRagExplorerDemo,
+    githubUrl: siteLinks.insurellmRagExplorerRepo,
+  },
+  {
     title: "National Park Trip Planner",
     description:
       "Plan visits to U.S. national parks with an interactive assistant powered by structured park data and LLM-driven suggestions.",

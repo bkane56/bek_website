@@ -14,6 +14,8 @@ describe("siteLinks", () => {
       "PUBLIC_NATIONAL_PARK_TRIP_PLANNER_GITHUB_URL",
       "PUBLIC_CONSULTATION_AI_DEMO_URL",
       "PUBLIC_CONSULTATION_AI_GITHUB_URL",
+      "PUBLIC_INSURELLM_RAG_EXPLORER_URL",
+      "PUBLIC_INSURELLM_RAG_EXPLORER_GITHUB_URL",
     ] as const) {
       delete process.env[key];
     }
@@ -69,5 +71,17 @@ describe("siteLinks", () => {
     process.env.PUBLIC_CONSULTATION_AI_GITHUB_URL = "https://github.example/consultationAI";
     const { siteLinks } = await import("./site-links");
     expect(siteLinks.consultationAiRepo).toBe("https://github.example/consultationAI");
+  });
+
+  it("respects PUBLIC_INSURELLM_RAG_EXPLORER_URL when present", async () => {
+    process.env.PUBLIC_INSURELLM_RAG_EXPLORER_URL = "https://hf.example/rag";
+    const { siteLinks } = await import("./site-links");
+    expect(siteLinks.insurellmRagExplorerDemo).toBe("https://hf.example/rag");
+  });
+
+  it("respects PUBLIC_INSURELLM_RAG_EXPLORER_GITHUB_URL when present", async () => {
+    process.env.PUBLIC_INSURELLM_RAG_EXPLORER_GITHUB_URL = "https://github.example/rag_demo";
+    const { siteLinks } = await import("./site-links");
+    expect(siteLinks.insurellmRagExplorerRepo).toBe("https://github.example/rag_demo");
   });
 });
