@@ -20,7 +20,7 @@ export const siteLinks = {
     "https://github.com/bkane56/consultationAI",
   insurellmRagExplorerDemo:
     process.env.PUBLIC_INSURELLM_RAG_EXPLORER_URL ??
-    "https://huggingface.co/spaces/Bkane56/insurellm-rag-explorer",
+    "https://bkane56-insurellm-rag-explorer.hf.space",
   insurellmRagExplorerRepo:
     process.env.PUBLIC_INSURELLM_RAG_EXPLORER_GITHUB_URL ??
     "https://github.com/bkane56/rag_demo",
