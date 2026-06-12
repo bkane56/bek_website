@@ -35,6 +35,7 @@ describe("FeaturedProjects real data behavior", () => {
       .getByRole("heading", { name: "Insurellm RAG Explorer" })
       .closest("article");
     expect(ragExplorerCard).not.toBeNull();
+    expect(within(ragExplorerCard!).getByText("Interactive insurance knowledge base demo")).toBeVisible();
     expect(within(ragExplorerCard!).getByRole("link", { name: /open demo/i })).toBeVisible();
     expect(within(ragExplorerCard!).getByRole("link", { name: /^github$/i })).toBeVisible();
 

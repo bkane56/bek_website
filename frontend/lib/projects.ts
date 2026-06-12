@@ -70,8 +70,9 @@ export const featuredProjects: ProjectCard[] = [
   },
   {
     title: "Insurellm RAG Explorer",
+    subtitle: "Interactive insurance knowledge base demo",
     description:
-      "Interactive knowledge base explorer with bundled markdown documents. Switch between embedding models to compare retrieval behavior, visualize the vector store in 2D and 3D t-SNE plots, and ask grounded questions with cited sources.",
+      "Explore a fictional insurance company's document corpus (contracts, products, employees). Switch between embedding models to compare retrieval behavior, visualize the vector store in 2D and 3D t-SNE plots, and ask grounded questions with cited sources.",
     techStack: [
       "Python",
       "Gradio",

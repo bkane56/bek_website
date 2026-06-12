@@ -29,6 +29,7 @@ describe("featuredProjects data", () => {
   it("links Insurellm RAG Explorer to the Hugging Face demo and GitHub repo", () => {
     const ragExplorer = featuredProjects.find((p) => p.title === "Insurellm RAG Explorer");
     expect(ragExplorer).toBeDefined();
+    expect(ragExplorer!.subtitle).toBe("Interactive insurance knowledge base demo");
     expect(ragExplorer!.status).toBe("live");
     expect(ragExplorer!.demoUrl).toBe(siteLinks.insurellmRagExplorerDemo);
     expect(ragExplorer!.githubUrl).toBe(siteLinks.insurellmRagExplorerRepo);
