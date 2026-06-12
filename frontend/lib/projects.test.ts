@@ -48,4 +48,13 @@ describe("featuredProjects data", () => {
     expect(mediNotes!.demoUrl).toBe(siteLinks.consultationAiDemo);
     expect(mediNotes!.githubUrl).toBe(siteLinks.consultationAiRepo);
   });
+
+  it("links The Hallucination Tribunal to the Vercel demo and GitHub repo", () => {
+    const tribunal = featuredProjects.find((p) => p.title === "The Hallucination Tribunal");
+    expect(tribunal).toBeDefined();
+    expect(tribunal!.subtitle).toBe("RAG Document Assistant");
+    expect(tribunal!.status).toBe("live");
+    expect(tribunal!.demoUrl).toBe(siteLinks.hallucinationTribunalDemo);
+    expect(tribunal!.githubUrl).toBe(siteLinks.hallucinationTribunalRepo);
+  });
 });

@@ -15,8 +15,10 @@ export const hero = {
 
 export const about = {
   paragraphs: [
-    "I am a software engineer with over 11 years of experience building reliable applications, APIs, and front-end systems. My core background is React.js and Java, and I have been expanding deeply into AI engineering, including machine learning, RAG, embeddings, LLM applications, and agentic AI systems.",
-    "I take the work seriously: clean architecture, maintainable code, thoughtful UX, and systems that actually solve business problems. I do not take myself too seriously, which means I enjoy collaboration, humor, and working with people who like building things the right way without turning every meeting into a ceremony.",
+    "I am a software engineer with over 11 years of experience building reliable applications, APIs, and front-end systems. My core background is React.js for the front-end and Java for the backend/service layer. I have been expanding deeply into AI engineering for the last 2+ years, including machine learning, RAG, embeddings, LLM applications, agentic AI systems, MCP primarily as tools for AI agents.",
+    "I take my work seriously: clean architecture, maintainable code, thoughtful UX, and systems that actually solve business problems.",
+    "I do not take myself too seriously, which means I enjoy collaboration, humor, and working with people who like building things the right way without turning every meeting into a ceremony.",
+
   ],
 };
 

@@ -43,8 +43,7 @@ export const sectionCopy = {
   },
   projects: {
     heading: "Featured projects",
-    intro:
-      "Cards are link-ready for demos, GitHub, or external case studies — whatever the project needs.",
+    intro: "Some of the personal projects I've been working on recently."
   },
   aiFocus: { heading: "AI focus" },
   experience: { heading: "Experience summary" },

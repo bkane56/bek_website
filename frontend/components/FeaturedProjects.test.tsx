@@ -36,6 +36,13 @@ vi.mock("@/lib/projects", async (importOriginal) => {
       githubUrl: "https://github.com/user/app",
     },
     {
+      title: "With Subtitle",
+      subtitle: "RAG Document Assistant",
+      description: "Card with a subtitle under the title.",
+      techStack: [],
+      status: "coming-soon",
+    },
+    {
       title: "No Links Live",
       description: "Live label but awaiting wiring.",
       techStack: [],
@@ -95,12 +102,15 @@ describe("FeaturedProjects", () => {
     expect(
       within(comingSoonArticle).getByRole("button", { name: /details coming soon/i }),
     ).toBeDisabled();
+
+    const subtitleArticle = screen.getByRole("heading", { name: "With Subtitle" }).closest("article")!;
+    expect(within(subtitleArticle).getByText("RAG Document Assistant")).toBeVisible();
   });
 
   it("surfaces status badges for each card", () => {
     render(<FeaturedProjects />);
 
     expect(screen.getAllByText("Live")).toHaveLength(5);
-    expect(screen.getAllByText("Coming Soon")).toHaveLength(1);
+    expect(screen.getAllByText("Coming Soon")).toHaveLength(2);
   });
 });

@@ -48,11 +48,18 @@ export function FeaturedProjects() {
               key={project.title}
               className="flex flex-col rounded-xl border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
             >
-              <div className="flex flex-wrap items-center gap-2">
-                <h3 className="text-lg font-semibold text-primary-text">{project.title}</h3>
-                <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-secondary-text ring-1 ring-border">
-                  {statusLabel(project.status)}
-                </span>
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-lg font-semibold text-primary-text">{project.title}</h3>
+                    <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-secondary-text ring-1 ring-border">
+                      {statusLabel(project.status)}
+                    </span>
+                  </div>
+                  {project.subtitle ? (
+                    <p className="mt-1 text-sm text-secondary-text">{project.subtitle}</p>
+                  ) : null}
+                </div>
               </div>
               <p className="mt-3 grow text-sm leading-relaxed text-secondary-text">
                 {project.description}
