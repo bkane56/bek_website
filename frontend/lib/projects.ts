@@ -4,6 +4,7 @@ export type ProjectStatus = "live" | "coming-soon" | "case-study" | "private-cod
 
 export type ProjectCard = {
   title: string;
+  subtitle?: string;
   description: string;
   problem?: string;
   solution?: string;
@@ -46,11 +47,26 @@ export const featuredProjects: ProjectCard[] = [
     githubUrl: siteLinks.github,
   },
   {
-    title: "RAG Document Assistant",
+    title: "The Hallucination Tribunal",
+    subtitle: "RAG Document Assistant",
     description:
-      "Document assistant that retrieves relevant content from uploaded files and generates grounded responses with citations.",
-    techStack: ["Python", "RAG", "Embeddings", "Vector database", "LLM API", "Streamlit or Next.js"],
-    status: "case-study",
+      "Portfolio RAG app that answers questions from a controlled document corpus and subjects each answer to adversarial review: Witness generates grounded responses, Prosecutor challenges claims, and Judge delivers transparent verdicts with citations. Demonstrates hybrid retrieval, multi-agent orchestration, claim-level verification, document ingestion, and an evaluation dashboard.",
+    techStack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Python",
+      "FastAPI",
+      "Pydantic",
+      "ChromaDB",
+      "Hybrid retrieval (vector + BM25)",
+      "Multi-agent pipeline",
+      "OpenAI (optional Ollama)",
+      "Vercel / Render",
+    ],
+    status: "live",
+    demoUrl: siteLinks.hallucinationTribunalDemo,
+    githubUrl: siteLinks.hallucinationTribunalRepo,
   },
   {
     title: "Insurellm RAG Explorer",

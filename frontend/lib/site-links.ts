@@ -24,4 +24,10 @@ export const siteLinks = {
   insurellmRagExplorerRepo:
     process.env.PUBLIC_INSURELLM_RAG_EXPLORER_GITHUB_URL ??
     "https://github.com/bkane56/rag_demo",
+  hallucinationTribunalDemo:
+    process.env.PUBLIC_HALLUCINATION_TRIBUNAL_DEMO_URL ??
+    "https://hallucination-tribunal.vercel.app/",
+  hallucinationTribunalRepo:
+    process.env.PUBLIC_HALLUCINATION_TRIBUNAL_GITHUB_URL ??
+    "https://github.com/bkane56/Hallucination_Tribunal",
 } as const;

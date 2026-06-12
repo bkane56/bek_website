@@ -209,7 +209,7 @@ Override demo and repo URLs via `PUBLIC_*` keys in [`.env.example`](.env.example
 | AI Digital Twin | coming-soon | — | — |
 | Agentic Coding Team | private-code | — | — |
 | React Enterprise Application | live | — | GitHub profile |
-| RAG Document Assistant | case-study | — | — |
+| The Hallucination Tribunal (RAG Document Assistant) | live | [Vercel demo](https://hallucination-tribunal.vercel.app/) | [Hallucination_Tribunal](https://github.com/bkane56/Hallucination_Tribunal) |
 | National Park Trip Planner | live | Hugging Face Space | `national_park_crew` |
 | MediNotes Pro | live | [Vercel demo](https://saas-bice-iota.vercel.app/) | [consultationAI](https://github.com/bkane56/consultationAI) |
 
