@@ -9,19 +9,19 @@ describe("FeaturedProjects real data behavior", () => {
     expect(screen.getAllByText("Live")).toHaveLength(5);
     expect(screen.getAllByText("Coming Soon")).toHaveLength(1);
     expect(screen.queryAllByText("Case Study Pending")).toHaveLength(0);
-    expect(screen.getAllByText("Private Code / Write-Up Coming")).toHaveLength(1);
+    expect(screen.queryAllByText("Private Code / Write-Up Coming")).toHaveLength(0);
   });
 
   it("shows disabled CTA for non-live cards and links for live cards", () => {
     render(<FeaturedProjects />);
 
-    const privateCodeCard = screen
-      .getByRole("heading", { name: "Agentic Coding Team" })
+    const investAiCard = screen
+      .getByRole("heading", { name: "InvestAI" })
       .closest("article");
-    expect(privateCodeCard).not.toBeNull();
-    expect(
-      within(privateCodeCard!).getByRole("button", { name: /details coming soon/i }),
-    ).toBeDisabled();
+    expect(investAiCard).not.toBeNull();
+    expect(within(investAiCard!).getByText("AI-Assisted Paper Trading Platform")).toBeVisible();
+    expect(within(investAiCard!).getByRole("link", { name: /open demo/i })).toBeVisible();
+    expect(within(investAiCard!).getByRole("link", { name: /^github$/i })).toBeVisible();
 
     const tribunalCard = screen
       .getByRole("heading", { name: "The Hallucination Tribunal" })

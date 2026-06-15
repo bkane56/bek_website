@@ -19,11 +19,13 @@ describe("statusLabel", () => {
 });
 
 describe("featuredProjects data", () => {
-  it("uses githubUrl (not demoUrl) for the GitHub-backed React enterprise card", () => {
-    const reactEnterprise = featuredProjects.find((p) => p.title === "React Enterprise Application");
-    expect(reactEnterprise).toBeDefined();
-    expect(reactEnterprise!.demoUrl).toBeUndefined();
-    expect(reactEnterprise!.githubUrl).toBe(siteLinks.github);
+  it("links InvestAI to the Vercel demo and stock_trader GitHub repo", () => {
+    const investAi = featuredProjects.find((p) => p.title === "InvestAI");
+    expect(investAi).toBeDefined();
+    expect(investAi!.subtitle).toBe("AI-Assisted Paper Trading Platform");
+    expect(investAi!.status).toBe("live");
+    expect(investAi!.demoUrl).toBe(siteLinks.stockTraderDemo);
+    expect(investAi!.githubUrl).toBe(siteLinks.stockTraderRepo);
   });
 
   it("links Insurellm RAG Explorer to the Hugging Face demo and GitHub repo", () => {

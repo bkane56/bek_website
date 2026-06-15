@@ -30,4 +30,8 @@ export const siteLinks = {
   hallucinationTribunalRepo:
     process.env.PUBLIC_HALLUCINATION_TRIBUNAL_GITHUB_URL ??
     "https://github.com/bkane56/Hallucination_Tribunal",
+  stockTraderDemo:
+    process.env.PUBLIC_STOCK_TRADER_DEMO_URL ?? "https://stock-trader-wine.vercel.app/",
+  stockTraderRepo:
+    process.env.PUBLIC_STOCK_TRADER_GITHUB_URL ?? "https://github.com/bkane56/stock_trader",
 } as const;

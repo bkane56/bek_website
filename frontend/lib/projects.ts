@@ -32,19 +32,26 @@ export const featuredProjects: ProjectCard[] = [
     status: "coming-soon",
   },
   {
-    title: "Agentic Coding Team",
+    title: "InvestAI",
+    subtitle: "AI-Assisted Paper Trading Platform",
     description:
-      "Multi-agent software workflow using supervisor, architect, engineer, and testing agents to plan, build, and validate software tasks.",
-    techStack: ["Python", "OpenAI Agents SDK", "MCP", "Docker", "Pydantic"],
-    status: "private-code",
-  },
-  {
-    title: "React Enterprise Application",
-    description:
-      "Large-scale React work with React Router, reducer-driven state, and production-oriented front-end architecture.",
-    techStack: ["React", "React Router", "Reducers", "TypeScript", "Component architecture"],
+      "Full-stack paper-trading platform with a React SPA, FastAPI backend, and OpenAI Agents SDK orchestration. Morning briefings flow through a deterministic pipeline: candidate scoring, market data, portfolio state, risk rules, then structured AI recommendations with a full decision ledger. Demonstrates responsible AI (manual/assisted/autonomous modes), cost-aware LLM usage, InstantDB persistence, WCAG-tested UI, and Vercel + Render deployment.",
+    techStack: [
+      "React 19",
+      "Redux",
+      "React Router",
+      "FastAPI",
+      "Python",
+      "OpenAI Agents SDK",
+      "InstantDB",
+      "Pydantic",
+      "MCP",
+      "Vercel / Render",
+      "WCAG 2.2",
+    ],
     status: "live",
-    githubUrl: siteLinks.github,
+    demoUrl: siteLinks.stockTraderDemo,
+    githubUrl: siteLinks.stockTraderRepo,
   },
   {
     title: "The Hallucination Tribunal",
