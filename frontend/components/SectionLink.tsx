@@ -28,7 +28,7 @@ export function SectionLink({ href, className, children, onNavigate }: SectionLi
     onNavigate?.();
     if (pathname !== "/") return;
 
-    const target = document.getElementById(sectionId);
+    const target = document.getElementById(href.slice(2));
     if (!target) return;
 
     event.preventDefault();
