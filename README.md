@@ -206,7 +206,7 @@ Override demo and repo URLs via `PUBLIC_*` keys in [`.env.example`](.env.example
 
 | Title | Status | Demo | Repo |
 |---|---|---|---|
-| AI Digital Twin | coming-soon | — | — |
+| AI Digital Twin (Full-stack portfolio assistant) | live | [CloudFront demo](https://duz835cs0raav.cloudfront.net/) | [twin](https://github.com/bkane56/twin) |
 | InvestAI (AI-Assisted Paper Trading Platform) | live | [Vercel demo](https://stock-trader-wine.vercel.app/) | [stock_trader](https://github.com/bkane56/stock_trader) |
 | The Hallucination Tribunal (RAG Document Assistant) | live | [Vercel demo](https://hallucination-tribunal.vercel.app/) | [Hallucination_Tribunal](https://github.com/bkane56/Hallucination_Tribunal) |
 | National Park Trip Planner | live | Hugging Face Space | `national_park_crew` |
@@ -222,7 +222,6 @@ Healthcare AI documentation assistant: clinician consultation input becomes stru
 
 ## Roadmap
 
-- Ship AI Digital Twin experience
 - Add project case studies for private and pending builds
 - Expand AI workflow portfolio with architecture write-ups
 

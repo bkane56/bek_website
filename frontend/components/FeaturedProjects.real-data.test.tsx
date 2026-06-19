@@ -6,14 +6,22 @@ describe("FeaturedProjects real data behavior", () => {
   it("renders expected status badges from real project data", () => {
     render(<FeaturedProjects />);
 
-    expect(screen.getAllByText("Live")).toHaveLength(5);
-    expect(screen.getAllByText("Coming Soon")).toHaveLength(1);
+    expect(screen.getAllByText("Live")).toHaveLength(6);
+    expect(screen.queryAllByText("Coming Soon")).toHaveLength(0);
     expect(screen.queryAllByText("Case Study Pending")).toHaveLength(0);
     expect(screen.queryAllByText("Private Code / Write-Up Coming")).toHaveLength(0);
   });
 
   it("shows disabled CTA for non-live cards and links for live cards", () => {
     render(<FeaturedProjects />);
+
+    const digitalTwinCard = screen
+      .getByRole("heading", { name: "AI Digital Twin" })
+      .closest("article");
+    expect(digitalTwinCard).not.toBeNull();
+    expect(within(digitalTwinCard!).getByText("Full-stack portfolio assistant")).toBeVisible();
+    expect(within(digitalTwinCard!).getByRole("link", { name: /open demo/i })).toBeVisible();
+    expect(within(digitalTwinCard!).getByRole("link", { name: /^github$/i })).toBeVisible();
 
     const investAiCard = screen
       .getByRole("heading", { name: "InvestAI" })

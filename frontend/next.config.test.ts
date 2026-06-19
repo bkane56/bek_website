@@ -22,6 +22,8 @@ describe("next.config PUBLIC env forwarding", () => {
     process.env.PUBLIC_HALLUCINATION_TRIBUNAL_GITHUB_URL = "https://github.com/test/tribunal";
     process.env.PUBLIC_STOCK_TRADER_DEMO_URL = "https://example.com/stock-trader";
     process.env.PUBLIC_STOCK_TRADER_GITHUB_URL = "https://github.com/test/stock_trader";
+    process.env.PUBLIC_DIGITAL_TWIN_DEMO_URL = "https://example.com/twin";
+    process.env.PUBLIC_DIGITAL_TWIN_GITHUB_URL = "https://github.com/test/twin";
     process.env.PUBLIC_NOT_ALLOWLISTED = "should-not-pass";
 
     const { clientPublicEnv, PUBLIC_ENV_KEYS } = await import("./next.config");

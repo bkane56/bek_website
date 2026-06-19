@@ -51,9 +51,9 @@ export const sectionCopy = {
     heading: "Resume",
     pdfNote: "PDF is the primary format for recruiters and ATS.",
     downloadPdf: "Download PDF Resume",
-    downloadDocx: "Download DOCX Resume",
-    downloadTxtLink: "Download plain text resume",
-    txtOptionalNote: "(optional, handy for quick paste)",
+    viewMarkdown: "View as Markdown",
+    markdownNote: "Readable in the browser, good for quick scanning.",
+    backToHome: "Back to home",
   },
   contact: { heading: "Contact" },
 } as const;
@@ -76,7 +76,7 @@ export const heroCopy = {
   ctaDownloadResume: "Download Resume",
   ctaViewProjects: "View Projects",
   ctaContactMe: "Contact Me",
-  twinPreviewNote: "preview below — full experience coming soon.",
+  twinPreviewNote: "is live — try it below.",
   imageAltProfessional: "Brian E. Kane — professional headshot",
 } as const;
 
@@ -86,7 +86,7 @@ export const personalityMedia = {
 } as const;
 
 export const twinChrome = {
-  statusNote: "Text chat first, then optional audio — no autoplay, ever.",
+  statusNote: "Live text chat on AWS — ask about my resume, projects, and AI engineering work.",
 } as const;
 
 /** Narrow breakpoint labels for theme toggle (matches prior ThemeSelector behavior). */

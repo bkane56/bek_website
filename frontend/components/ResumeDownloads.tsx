@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { resumeFiles } from "@/lib/resume-files";
 import { sectionCopy } from "@/lib/ui-copy";
 
@@ -21,20 +22,14 @@ export function ResumeDownloads() {
           >
             {sectionCopy.resume.downloadPdf}
           </a>
-          <a
-            href={resumeFiles.docx}
-            download
+          <Link
+            href={resumeFiles.markdownView}
             className="inline-flex min-h-11 items-center justify-center rounded-lg border border-border bg-card px-6 py-3 text-sm font-semibold text-primary-text hover:bg-muted"
           >
-            {sectionCopy.resume.downloadDocx}
-          </a>
+            {sectionCopy.resume.viewMarkdown}
+          </Link>
         </div>
-        <p className="mt-6 text-sm text-secondary-text">
-          <a href={resumeFiles.txt} download className="font-medium text-accent hover:underline">
-            {sectionCopy.resume.downloadTxtLink}
-          </a>{" "}
-          <span className="text-secondary-text">{sectionCopy.resume.txtOptionalNote}</span>
-        </p>
+        <p className="mt-6 text-sm text-secondary-text">{sectionCopy.resume.markdownNote}</p>
       </div>
     </section>
   );

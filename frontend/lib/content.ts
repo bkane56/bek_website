@@ -1,3 +1,5 @@
+import { siteLinks } from "@/lib/site-links";
+
 export const siteMeta = {
   displayName: "Brian E. Kane",
   siteTitle: "Brian E. Kane — Senior Software Engineer",
@@ -105,8 +107,10 @@ export const experience = {
 
 export const twinTeaser = {
   title: "AI Digital Twin",
-  body: "Ask my AI Digital Twin about my background, projects, and technical experience.",
-  ctaDisabled: "AI Digital Twin Coming Soon",
+  body: "Ask about my background, projects, tech stack, and engineering decisions — backed by a deployed full-stack AWS Bedrock application.",
+  ctaLabel: "Chat with my AI Digital Twin",
+  ctaHref: siteLinks.digitalTwinDemo,
+  githubHref: siteLinks.digitalTwinRepo,
 };
 
 export const personality = {

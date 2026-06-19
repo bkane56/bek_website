@@ -34,4 +34,8 @@ export const siteLinks = {
     process.env.PUBLIC_STOCK_TRADER_DEMO_URL ?? "https://stock-trader-wine.vercel.app/",
   stockTraderRepo:
     process.env.PUBLIC_STOCK_TRADER_GITHUB_URL ?? "https://github.com/bkane56/stock_trader",
+  digitalTwinDemo:
+    process.env.PUBLIC_DIGITAL_TWIN_DEMO_URL ?? "https://duz835cs0raav.cloudfront.net/",
+  digitalTwinRepo:
+    process.env.PUBLIC_DIGITAL_TWIN_GITHUB_URL ?? "https://github.com/bkane56/twin",
 } as const;

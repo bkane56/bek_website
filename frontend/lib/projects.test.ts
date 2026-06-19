@@ -19,6 +19,15 @@ describe("statusLabel", () => {
 });
 
 describe("featuredProjects data", () => {
+  it("links AI Digital Twin to the CloudFront demo and twin GitHub repo", () => {
+    const digitalTwin = featuredProjects.find((p) => p.title === "AI Digital Twin");
+    expect(digitalTwin).toBeDefined();
+    expect(digitalTwin!.subtitle).toBe("Full-stack portfolio assistant");
+    expect(digitalTwin!.status).toBe("live");
+    expect(digitalTwin!.demoUrl).toBe(siteLinks.digitalTwinDemo);
+    expect(digitalTwin!.githubUrl).toBe(siteLinks.digitalTwinRepo);
+  });
+
   it("links InvestAI to the Vercel demo and stock_trader GitHub repo", () => {
     const investAi = featuredProjects.find((p) => p.title === "InvestAI");
     expect(investAi).toBeDefined();

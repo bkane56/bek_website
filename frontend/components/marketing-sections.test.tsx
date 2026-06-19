@@ -51,15 +51,28 @@ describe("marketing sections", () => {
 
     expect(screen.getByRole("heading", { name: "Resume" })).toBeVisible();
     expect(screen.getByRole("link", { name: /Download PDF Resume/i })).toHaveAttribute("href", resumeFiles.pdf);
-    expect(screen.getByRole("link", { name: /Download DOCX Resume/i })).toHaveAttribute("href", resumeFiles.docx);
-    expect(screen.getByRole("link", { name: /plain text resume/i })).toHaveAttribute("href", resumeFiles.txt);
+    expect(screen.getByRole("link", { name: /View as Markdown/i })).toHaveAttribute(
+      "href",
+      resumeFiles.markdownView,
+    );
   });
 
-  it("keeps the digital twin teaser honest about availability", () => {
+  it("links to the live digital twin demo", () => {
     render(<TwinTeaser />);
 
     expect(screen.getByRole("heading", { name: twinTeaser.title })).toBeVisible();
-    expect(screen.getByRole("button", { name: twinTeaser.ctaDisabled })).toBeDisabled();
+    expect(screen.getByRole("link", { name: twinTeaser.ctaLabel })).toHaveAttribute(
+      "href",
+      twinTeaser.ctaHref,
+    );
+    expect(screen.getByRole("link", { name: twinTeaser.ctaLabel })).toHaveAttribute(
+      "target",
+      "_blank",
+    );
+    expect(screen.getByRole("link", { name: /^GitHub$/i })).toHaveAttribute(
+      "href",
+      twinTeaser.githubHref,
+    );
   });
 
   it("balances personality copy with the lighter photo", () => {

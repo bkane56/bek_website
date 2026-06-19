@@ -1,5 +1,5 @@
 import { twinTeaser } from "@/lib/content";
-import { twinChrome } from "@/lib/ui-copy";
+import { externalLinkLabels, twinChrome } from "@/lib/ui-copy";
 
 export function TwinTeaser() {
   return (
@@ -9,14 +9,25 @@ export function TwinTeaser() {
           {twinTeaser.title}
         </h2>
         <p className="mt-4 max-w-prose text-secondary-text">{twinTeaser.body}</p>
-        <button
-          type="button"
-          disabled
-          className="mt-6 inline-flex min-h-11 cursor-not-allowed items-center justify-center rounded-lg bg-muted px-5 py-3 text-sm font-semibold text-secondary-text ring-1 ring-border"
-          aria-describedby="twin-status"
-        >
-          {twinTeaser.ctaDisabled}
-        </button>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <a
+            href={twinTeaser.ctaHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center justify-center rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-button-text hover:opacity-90"
+            aria-describedby="twin-status"
+          >
+            {twinTeaser.ctaLabel}
+          </a>
+          <a
+            href={twinTeaser.githubHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center justify-center rounded-lg border border-border bg-card px-5 py-3 text-sm font-semibold text-primary-text hover:bg-muted"
+          >
+            {externalLinkLabels.github}
+          </a>
+        </div>
         <p id="twin-status" className="mt-3 text-xs text-secondary-text">
           {twinChrome.statusNote}
         </p>

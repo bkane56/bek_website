@@ -1,5 +1,4 @@
 export const resumeFiles = {
-  pdf: "/resume/Brian_Kane_Senior_Software_Engineer_Resume.pdf",
-  docx: "/resume/Brian_Kane_Senior_Software_Engineer_Resume.docx",
-  txt: "/resume/Brian_Kane_Senior_Software_Engineer_Resume.txt",
+  pdf: "/resume/Brian_Kane_Full_Stack_AI_Engineer_Resume.pdf",
+  markdownView: "/resume",
 } as const;

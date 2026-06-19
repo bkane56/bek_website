@@ -16,6 +16,8 @@ describe("siteLinks", () => {
       "PUBLIC_CONSULTATION_AI_GITHUB_URL",
       "PUBLIC_INSURELLM_RAG_EXPLORER_URL",
       "PUBLIC_INSURELLM_RAG_EXPLORER_GITHUB_URL",
+      "PUBLIC_DIGITAL_TWIN_DEMO_URL",
+      "PUBLIC_DIGITAL_TWIN_GITHUB_URL",
     ] as const) {
       delete process.env[key];
     }
@@ -83,5 +85,17 @@ describe("siteLinks", () => {
     process.env.PUBLIC_INSURELLM_RAG_EXPLORER_GITHUB_URL = "https://github.example/rag_demo";
     const { siteLinks } = await import("./site-links");
     expect(siteLinks.insurellmRagExplorerRepo).toBe("https://github.example/rag_demo");
+  });
+
+  it("respects PUBLIC_DIGITAL_TWIN_DEMO_URL when present", async () => {
+    process.env.PUBLIC_DIGITAL_TWIN_DEMO_URL = "https://demo.example/twin";
+    const { siteLinks } = await import("./site-links");
+    expect(siteLinks.digitalTwinDemo).toBe("https://demo.example/twin");
+  });
+
+  it("respects PUBLIC_DIGITAL_TWIN_GITHUB_URL when present", async () => {
+    process.env.PUBLIC_DIGITAL_TWIN_GITHUB_URL = "https://github.example/twin";
+    const { siteLinks } = await import("./site-links");
+    expect(siteLinks.digitalTwinRepo).toBe("https://github.example/twin");
   });
 });
