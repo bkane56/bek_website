@@ -1,5 +1,6 @@
 import { siteMeta, footerNote } from "@/lib/content";
 import { siteLinks } from "@/lib/site-links";
+import { SectionLink } from "@/components/SectionLink";
 import { ariaLabels, externalLinkLabels, primaryNavItems } from "@/lib/ui-copy";
 
 export function Footer() {
@@ -13,13 +14,13 @@ export function Footer() {
           </div>
           <nav aria-label={ariaLabels.navFooter} className="flex flex-wrap gap-x-4 gap-y-2">
             {primaryNavItems.map((item) => (
-              <a
+              <SectionLink
                 key={item.href}
                 href={item.href}
                 className="text-sm font-medium text-secondary-text hover:text-primary-text"
               >
                 {item.label}
-              </a>
+              </SectionLink>
             ))}
             <a
               href={siteLinks.linkedIn}

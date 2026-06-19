@@ -15,7 +15,7 @@ describe("Header", () => {
       </ThemeProvider>,
     );
 
-    expect(screen.getByRole("link", { name: siteMeta.displayName })).toHaveAttribute("href", "#top");
+    expect(screen.getByRole("link", { name: siteMeta.displayName })).toHaveAttribute("href", "/#top");
     expect(screen.getByRole("navigation", { name: "Primary" })).toBeInTheDocument();
 
     const menuButton = screen.getByRole("button", { name: /open menu/i });

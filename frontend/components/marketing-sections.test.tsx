@@ -18,7 +18,7 @@ describe("marketing sections", () => {
     render(<Hero />);
 
     expect(screen.getByRole("heading", { level: 1, name: hero.headline })).toBeVisible();
-    expect(screen.getByRole("link", { name: /download resume/i })).toHaveAttribute("href", "#resume");
+    expect(screen.getByRole("link", { name: /download resume/i })).toHaveAttribute("href", "/#resume");
     expect(screen.getByRole("img", { name: /headshot/i })).toHaveAttribute("src", "/images/BEK_2.png");
   });
 

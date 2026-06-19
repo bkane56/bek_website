@@ -4,12 +4,12 @@
  */
 
 export const primaryNavItems = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#ai-focus", label: "AI Focus" },
-  { href: "#resume", label: "Resume" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#ai-focus", label: "AI Focus" },
+  { href: "/#resume", label: "Resume" },
+  { href: "/#contact", label: "Contact" },
 ] as const;
 
 export type PrimaryNavItem = (typeof primaryNavItems)[number];
@@ -73,10 +73,11 @@ export const projectCard = {
 } as const;
 
 export const heroCopy = {
-  ctaDownloadResume: "Download Resume",
+  ctaDownloadResume: "Download Resume PDF",
   ctaViewProjects: "View Projects",
   ctaContactMe: "Contact Me",
-  twinPreviewNote: "is live — try it below.",
+  twinPreviewNote:
+    "is live. Ask it about my background, projects, and engineering experience.",
   imageAltProfessional: "Brian E. Kane — professional headshot",
 } as const;
 

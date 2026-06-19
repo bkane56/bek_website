@@ -22,11 +22,18 @@ const markdownComponents: Components = {
   ),
   li: ({ children }) => <li className="text-pretty leading-relaxed">{children}</li>,
   strong: ({ children }) => <strong className="font-semibold text-primary-text">{children}</strong>,
-  a: ({ href, children }) => (
-    <a href={href} className="font-medium text-accent hover:underline">
-      {children}
-    </a>
-  ),
+  a: ({ href, children }) => {
+    const isExternal = typeof href === "string" && /^https?:\/\//.test(href);
+    return (
+      <a
+        href={href}
+        className="font-medium text-accent hover:underline"
+        {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
+        {children}
+      </a>
+    );
+  },
 };
 
 type ResumeMarkdownViewProps = {

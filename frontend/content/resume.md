@@ -2,7 +2,7 @@
 
 **Full-Stack AI Engineer | Senior Software Engineer | Healthcare Technology**  
 River Ranch, Florida | Remote Only  
-BrianEKane.com | github.com/bkane56 | linkedin.com/in/brian-kane-396a8862
+[BrianEKane.com](https://www.brianekane.com) | [github.com/bkane56](https://github.com/bkane56) | [linkedin.com/in/brian-kane-396a8862](https://www.linkedin.com/in/brian-kane-396a8862/)
 
 ## Professional Summary
 

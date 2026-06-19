@@ -22,5 +22,10 @@ describe("ResumeMarkdownView", () => {
       "href",
       "https://example.com",
     );
+    expect(screen.getByRole("link", { name: "portfolio" })).toHaveAttribute("target", "_blank");
+    expect(screen.getByRole("link", { name: "portfolio" })).toHaveAttribute(
+      "rel",
+      "noopener noreferrer",
+    );
   });
 });

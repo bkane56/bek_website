@@ -40,3 +40,7 @@ vi.mock("next/link", () => ({
     </a>
   ),
 }));
+
+vi.mock("next/navigation", () => ({
+  usePathname: () => "/",
+}));

@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 import { hero, siteMeta, twinTeaser } from "@/lib/content";
+import { SectionLink } from "@/components/SectionLink";
 import { heroCopy } from "@/lib/ui-copy";
 
 export function Hero() {
@@ -21,29 +21,29 @@ export function Hero() {
           </h1>
           <p className="mt-4 max-w-2xl text-pretty text-lg text-secondary-text">{hero.subheadline}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a
-              href="#resume"
+            <SectionLink
+              href="/#resume"
               className="inline-flex min-h-11 items-center justify-center rounded-lg bg-accent px-5 py-3 text-center text-sm font-semibold text-button-text shadow-sm transition-opacity hover:opacity-90"
             >
               {heroCopy.ctaDownloadResume}
-            </a>
-            <a
-              href="#projects"
+            </SectionLink>
+            <SectionLink
+              href="/#projects"
               className="inline-flex min-h-11 items-center justify-center rounded-lg border border-border bg-card px-5 py-3 text-center text-sm font-semibold text-primary-text transition-colors hover:bg-muted"
             >
               {heroCopy.ctaViewProjects}
-            </a>
-            <a
-              href="#contact"
+            </SectionLink>
+            <SectionLink
+              href="/#contact"
               className="inline-flex min-h-11 items-center justify-center rounded-lg border border-transparent px-5 py-3 text-center text-sm font-semibold text-accent underline-offset-4 hover:underline"
             >
               {heroCopy.ctaContactMe}
-            </a>
+            </SectionLink>
           </div>
           <p className="mt-6 text-sm text-secondary-text">
-            <Link href="#twin" className="font-medium text-accent hover:underline">
+            <SectionLink href="/#twin" className="font-medium text-accent hover:underline">
               {twinTeaser.title}
-            </Link>{" "}
+            </SectionLink>{" "}
             {heroCopy.twinPreviewNote}
           </p>
         </div>
