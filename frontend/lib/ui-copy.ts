@@ -49,7 +49,7 @@ export const sectionCopy = {
   experience: { heading: "Experience summary" },
   resume: {
     heading: "Resume",
-    pdfNote: "PDF is the primary format for recruiters and ATS.",
+    pdfNote: "PDF is the primary format for recruiters, hiring managers, and application portals.",
     downloadPdf: "Download PDF Resume",
     viewMarkdown: "View as Markdown",
     markdownNote: "Readable in the browser, good for quick scanning.",
